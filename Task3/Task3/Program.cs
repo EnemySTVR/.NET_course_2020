@@ -15,7 +15,7 @@ namespace Task3
             #region Отступ.
             Console.WriteLine();
             #endregion
-            Console.WriteLine($"Сумма всех положительных чисел массива равна: {Getter.Get_summ_positive_numbers(array)}");
+            Console.WriteLine($"Сумма всех не отрицательных чисел массива равна: {Getter.Get_summ_positive_numbers(array)}");
             Console.ReadLine();
         }
     }

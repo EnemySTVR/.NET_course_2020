@@ -13,7 +13,7 @@ namespace Task3
 		{
 			this.start = start;
 			this.step = step;
-			this.currentIndex = 1;
+			currentIndex = 0;
 		}
 
 		public double GetCurrent()
@@ -29,14 +29,14 @@ namespace Task3
 
 		public void Reset()
 		{
-			currentIndex = 1;
+			currentIndex = 0;
 		}
 
         public double this[int index]
         {
             get
             {
-                return start + step * index;
+                return start + step * (index + 1);
             }
         }
 

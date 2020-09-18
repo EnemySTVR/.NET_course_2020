@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using Library;
 
 namespace Task1
 {
@@ -15,15 +15,15 @@ namespace Task1
 
             Console.WriteLine("Сейчас мы создадим сотрудника на основе класса пользователя.");
             Console.Write("Введи должность сотрудника: ");
-            position = Console.ReadLine();
+            position = CorrectInput.Word();
             Console.Write("Введи имя сотрудника: ");
-            first_name = Console.ReadLine();
+            first_name = CorrectInput.Word();
             Console.Write("Введи фамилию сотрудника: ");
-            last_name = Console.ReadLine();
+            last_name = CorrectInput.Word();
             Console.Write("Введи отчество сотрудника: ");
-            sur_name = Console.ReadLine();
+            sur_name = CorrectInput.Word();
             Console.Write("Введи дату рождения сотрудника: ");
-            birth = Convert.ToDateTime(Console.ReadLine());
+            birth = CorrectInput.DateTime();
 
 
 

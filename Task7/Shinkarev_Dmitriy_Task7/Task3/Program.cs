@@ -6,7 +6,7 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-			ISeries progression = new ArithmeticalProgression(2, 2);
+			ISeries progression = new ArithmeticalProgression(0, 2);
 			Console.WriteLine("Progression:");
 			PrintSeries(progression);
 			GetObjectOfIndex(progression as IIndexable, 4);

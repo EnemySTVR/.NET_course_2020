@@ -12,6 +12,7 @@ namespace Task2
             Console.WriteLine("Введи число N (Только не слишком большое):");
             input = Console.ReadLine();
             n = Int32.Parse(input);
+
             Console.WriteLine();
 
             for(int i = 1; i <= n; i++)

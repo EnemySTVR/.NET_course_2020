@@ -7,7 +7,7 @@ namespace Task4
         static void Main(string[] args)
         {
             #region properties
-            string input;
+            
             int n;
             int row_lenght;
 
@@ -16,28 +16,26 @@ namespace Task4
 
             int counter = 1;
             #endregion
-            #region input
+
             Console.WriteLine("Введи число N (Только не слишком большое):");
-            input = Console.ReadLine();
-            n = Int32.Parse(input);
-            #endregion
+            n = Int32.Parse(Console.ReadLine());
             row_lenght = (n * 2) + 1;
             left_pointer = row_lenght / 2;
             right_pointer = row_lenght / 2;
 
-            char[] array = new char[row_lenght];
+            char[] row = new char[row_lenght];
             
             for(int i = 0; i <= n; i++)
             {
-                for (int l = 0; l < row_lenght; l++) array[l] = ' ';
+                Array.Clear(row, 0, row.Length);
 
                 for (int j = 0; j < counter; j++)
                 {
-                    array[left_pointer] = '*';
-                    array[right_pointer] = '*';
+                    row[left_pointer] = '*';
+                    row[right_pointer] = '*';
                     left_pointer--;
                     right_pointer++;
-                    foreach (var c in array) Console.Write(c);
+                    foreach (var c in row) Console.Write(c);
                     Console.WriteLine();
                 }
                 left_pointer = row_lenght / 2;

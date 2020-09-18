@@ -140,6 +140,7 @@ namespace Library
                     }
                 }
             }
+            result -= array[0, 0];
             return result;
         }
 

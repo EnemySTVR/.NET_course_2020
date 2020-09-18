@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using Library;
 
 namespace Task1
 {
@@ -50,7 +50,7 @@ namespace Task1
                     break;
 
                 case "6":
-                    Input(figures);
+                    Output(figures);
                     break;
                 default:
                     MainMenu(figures);
@@ -66,17 +66,17 @@ namespace Task1
             Console.Clear();
             Console.WriteLine("Введите координаты точки А.");
             Console.Write("X: ");
-            a_x = Int32.Parse(CorrectInput());
+            a_x = CorrectInput.Number();
             
             Console.Write("Y: ");
-            a_y = Int32.Parse(CorrectInput());
+            a_y = CorrectInput.Number();
 
             Console.WriteLine("Введите координаты точки B.");
             Console.Write("X: ");
-            b_x = Int32.Parse(CorrectInput());
+            b_x = CorrectInput.Number();
 
             Console.Write("Y: ");
-            b_y = Int32.Parse(CorrectInput());
+            b_y = CorrectInput.Number();
 
             figures.Add(new Line(a_x, a_y, b_x, b_y));
                         
@@ -92,17 +92,17 @@ namespace Task1
             Console.Clear();
             Console.WriteLine("Введите координаты.");
             Console.Write("X: ");
-            x = Int32.Parse(CorrectInput());
+            x = CorrectInput.Number();
 
             Console.Write("Y: ");
-            y = Int32.Parse(CorrectInput());
+            y = CorrectInput.Number();
 
             Console.WriteLine("Введите радиусы по осям.");
             Console.Write("X: ");
-            radius_x = Int32.Parse(CorrectInput());
+            radius_x = CorrectInput.PositiveNumber();
 
             Console.Write("Y: ");
-            radius_y = Int32.Parse(CorrectInput());
+            radius_y = CorrectInput.PositiveNumber();
 
             figures.Add(new Round(x, y, radius_x, radius_y));
 
@@ -118,13 +118,13 @@ namespace Task1
             Console.Clear();
             Console.WriteLine("Введите координаты.");
             Console.Write("X: ");
-            x = Int32.Parse(CorrectInput());
+            x = CorrectInput.Number();
             Console.Write("Y: ");
-            y = Int32.Parse(CorrectInput());
+            y = CorrectInput.Number();
             Console.Write("Введите высоту: ");
-            height = Int32.Parse(CorrectInput());
+            height = CorrectInput.PositiveNumber();
             Console.Write("Введите ширину: ");
-            width = Int32.Parse(CorrectInput());
+            width = CorrectInput.PositiveNumber();
 
             figures.Add(new Rectangle(x, y, width, width));
 
@@ -139,11 +139,11 @@ namespace Task1
             Console.Clear();
             Console.WriteLine("Введите координаты.");
             Console.Write("X: ");
-            x = Int32.Parse(CorrectInput());
+            x = CorrectInput.Number();
             Console.Write("Y: ");
-            y = Int32.Parse(CorrectInput());
+            y = CorrectInput.Number();
             Console.Write("Введите радиус: ");
-            radius = Int32.Parse(CorrectInput());
+            radius = CorrectInput.PositiveNumber();
 
             figures.Add(new CorrectRound(x, y, radius));
 
@@ -159,19 +159,19 @@ namespace Task1
             Console.Clear();
             Console.WriteLine("Введите координаты.");
             Console.Write("X: ");
-            x = Int32.Parse(CorrectInput());
+            x = CorrectInput.Number();
             Console.Write("Y: ");
-            y = Int32.Parse(CorrectInput());
+            y = CorrectInput.Number();
             Console.Write("Введите внешний радиус: ");
-            external_radius = Int32.Parse(CorrectInput());
+            external_radius = CorrectInput.PositiveNumber();
             Console.Write("Введите внутренний радиус: ");
-            interior_radius = Int32.Parse(CorrectInput());
+            interior_radius = CorrectInput.PositiveNumber();
 
             figures.Add(new Ring(x, y, external_radius, interior_radius));
 
             UI.MainMenu(figures);
         }
-        public static void Input(List<Figure> figures)
+        public static void Output(List<Figure> figures)
         {
             Console.Clear();
             foreach(var f in figures)
@@ -183,14 +183,6 @@ namespace Task1
             UI.MainMenu(figures);
         }
 
-        private static string CorrectInput()
-        {
-            string input;
-            do
-            { input = Console.ReadLine(); }
-            while (!Regex.IsMatch(input, @"^(\d*)$"));
-            return input;
-        }
     }
 
 

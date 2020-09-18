@@ -8,7 +8,7 @@ namespace Task3
         {
             string input;
             int n;
-            int lenght;
+            int row_lenght;
 
             int left_pointer;
             int right_pointer;
@@ -16,25 +16,22 @@ namespace Task3
             Console.WriteLine("Введи число N (Только не слишком большое):");
             input = Console.ReadLine();
             n = Int32.Parse(input);
-            lenght = (n * 2) - 1;
-            left_pointer = lenght / 2;
-            right_pointer = lenght / 2;
+            row_lenght = (n * 2) - 1;
+            left_pointer = row_lenght / 2;
+            right_pointer = row_lenght / 2;
 
-            char[] array = new char[lenght];
-            for(int i = 0; i < lenght; i++)
-            {
-                array[i] = ' ';
-            }
+            char[] row = new char[row_lenght];
+
 
             Console.WriteLine();
 
             for(int i = 0; i < n; i++)
             {
-                array[left_pointer] = '*';
-                array[right_pointer] = '*';
+                row[left_pointer] = '*';
+                row[right_pointer] = '*';
                 left_pointer--;
                 right_pointer++;
-                foreach(var c in array)
+                foreach(var c in row)
                 {
                     Console.Write(c);
                 }

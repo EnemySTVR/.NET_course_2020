@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library;
+using System;
 using System.Text.RegularExpressions;
 
 namespace Task1
@@ -14,13 +15,13 @@ namespace Task1
 
             Console.WriteLine("Сейчас мы создадим пользователя.");
             Console.Write("Введи имя пользователя: ");
-            first_name = Console.ReadLine();
+            first_name = CorrectInput.Word();
             Console.Write("Введи фамилию пользователя: ");
-            last_name = Console.ReadLine();
+            last_name = CorrectInput.Word();
             Console.Write("Введи отчество пользователя: ");
-            sur_name = Console.ReadLine();
+            sur_name = CorrectInput.Word();
             Console.Write("Введи дату рождения пользователя в формате ДД.ММ.ГГГГ: ");
-            birth = Convert.ToDateTime(Console.ReadLine());
+            birth = CorrectInput.DateTime();
 
 
             var user = new User(first_name, last_name, sur_name, birth);
@@ -31,5 +32,6 @@ namespace Task1
             Console.WriteLine($"Он родился {user.Date_of_Birth.ToLongDateString()} Ему {user.Age} лет.");
             Console.ReadLine();
         }
+
     }
 }

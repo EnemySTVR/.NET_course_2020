@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Task2
 {
@@ -16,14 +17,10 @@ namespace Task2
 
             foreach(var i in str1.ToCharArray())
             {
-                foreach(var j in str2.ToCharArray())
+                if(i != ' ' && str2.ToCharArray().Contains(i))
                 {
-                    if(i == j && i != ' ')
-                    {
-                        res += j;
-                        break;
-                    }
-                }
+                    res += i;
+                }  
 
                 res += i;
             }
