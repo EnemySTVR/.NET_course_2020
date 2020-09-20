@@ -7,8 +7,8 @@ namespace Task4.OtherObjects
 {
     class Stone : OtherObject
     {
-        public Stone(int x, int y) 
-            : base(x, y)
+        public Stone(int xCoordinates, int yCoordinates) 
+            : base(xCoordinates, yCoordinates)
         {
         }
         

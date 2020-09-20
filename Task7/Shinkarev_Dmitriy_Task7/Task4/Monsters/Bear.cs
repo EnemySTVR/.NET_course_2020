@@ -6,7 +6,8 @@ namespace Task4.Monsters
 {
     class Bear : Monster
     {
-        public Bear(int x, int y) : base(x, y)
+        public Bear(int xCoordinates, int yCoordinates) 
+            : base(xCoordinates, yCoordinates)
         {
         }
 

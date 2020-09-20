@@ -6,12 +6,12 @@ namespace Task4.OtherObjects
 {
     class Cherry : OtherObject
     {
-        public Cherry(int x, int y) 
-            : base(x, y)
+        public Cherry(int xCoordinates, int yCoordinates) 
+            : base(xCoordinates, yCoordinates)
         {
         }
 
-        public override void TakeProfit(Player p)
+        public override void TakeProfit(Player player)
         {
         }
     }

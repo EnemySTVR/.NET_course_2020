@@ -31,15 +31,16 @@ namespace Task1
             }
         }
 
-        public CorrectRound(int x, int y, int r)
-            :base(x ,y)
+        public CorrectRound(int xCoordinates, int yCoordinates, int radius)
+            :base(xCoordinates ,yCoordinates)
         {
-            _radius = r;
+            _radius = radius;
         }
 
         public override void Draw()
         {
-            Console.WriteLine($"Правильная окружность с радиусом {_radius}. Находится по координатам {_coordinates}.");
+            Console.WriteLine
+                ($"Правильная окружность с радиусом {_radius}. Находится по координатам {_coordinates}.");
         }
     }
 }

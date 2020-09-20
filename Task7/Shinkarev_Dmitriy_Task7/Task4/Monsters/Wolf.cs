@@ -6,7 +6,8 @@ namespace Task4.Monsters
 {
     class Wolf : Monster
     {
-        public Wolf(int x, int y) : base(x, y)
+        public Wolf(int xCoordinates, int yCoordinates) 
+            : base(xCoordinates, yCoordinates)
         {
         }
 

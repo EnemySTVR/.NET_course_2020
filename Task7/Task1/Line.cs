@@ -7,37 +7,38 @@ namespace Task1
 {
     class Line : Figure
     {
-        private Point _point_A;
-        private Point _point_B;
+        private Point _pointA;
+        private Point _pointB;
 
-        public Point ACoordinates
+        public Point A
         {
             get
             {
-                return _point_A;
+                return _pointA;
             }
         }
-        public Point BCoordinates
+        public Point B
         {
             get
             {
-                return _point_B;
+                return _pointB;
             }
         }
 
-        public Line(int a_x, int a_y, int b_x, int b_y)
+        public Line(int aXCoordinates, int aYCoordinates, int bXCoordinates, int bYCoordinates)
         {
-            int x = (a_x + b_x) / 2;
-            int y = (a_y + b_y) / 2;
+            int x = (aXCoordinates + bXCoordinates) / 2;
+            int y = (aYCoordinates + bYCoordinates) / 2;
 
             _coordinates = new Point(x, y);
-            _point_A = new Point(a_x, a_y);
-            _point_B = new Point(b_x, b_y);
+            _pointA = new Point(aXCoordinates, aYCoordinates);
+            _pointB = new Point(bXCoordinates, bYCoordinates);
         }
 
         public override void Draw()
         {
-            Console.WriteLine($"Линия от {_point_A} до {_point_B}. Находится по координатам {_coordinates}");
+            Console.WriteLine
+                ($"Линия от {_pointA} до {_pointB}. Находится по координатам {_coordinates}");
         }
     }
 }

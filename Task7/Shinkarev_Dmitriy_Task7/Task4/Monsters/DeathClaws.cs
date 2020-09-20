@@ -6,7 +6,8 @@ namespace Task4.Monsters
 {
     class DeathClaws : Monster
     {
-        public DeathClaws(int x, int y) : base(x, y)
+        public DeathClaws(int xCoordinates, int yCoordinates) 
+            : base(xCoordinates, yCoordinates)
         {
         }
 

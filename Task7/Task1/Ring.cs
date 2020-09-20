@@ -6,48 +6,49 @@ namespace Task1
 {
     class Ring : Figure
     {
-        private CorrectRound _interior_round;
-        private CorrectRound _external_round;
+        private CorrectRound _interiorRound;
+        private CorrectRound _externalRound;
 
         public int InteriorRadius
         {
             get
             {
-                return _interior_round.Radius;
+                return _interiorRound.Radius;
             }
         }
         public int ExternalRadius
         {
             get
             {
-                return _external_round.Radius;
+                return _externalRound.Radius;
             }
         }
         public double Perimeter
         {
             get
             {
-                return _external_round.Perimeter + _interior_round.Perimeter;
+                return _externalRound.Perimeter + _interiorRound.Perimeter;
             }
         }
         public double Area
         {
             get
             {
-                return _external_round.Area - _interior_round.Area;
+                return _externalRound.Area - _interiorRound.Area;
             }
         }
 
-        public Ring(int x, int y, int external_radius, int interior_radius)
-            : base(x, y)
+        public Ring(int xCoordinates, int yCoordinates, int externalRadius, int interiorRadius)
+            : base(xCoordinates, yCoordinates)
         {
-            _interior_round = new CorrectRound(x, y, interior_radius);
-            _external_round = new CorrectRound(x, y, external_radius);
+            _interiorRound = new CorrectRound(xCoordinates, yCoordinates, interiorRadius);
+            _externalRound = new CorrectRound(xCoordinates, yCoordinates, externalRadius);
         }
 
         public override void Draw()
         {
-            Console.WriteLine($"Кольцо с внешним радиусом {_external_round.Radius} и внутренним радиусом {_interior_round.Radius}. Находится по координатам {_coordinates}.");
+            Console.WriteLine
+                ($"Кольцо с внешним радиусом {_externalRound.Radius} и внутренним радиусом {_interiorRound.Radius}. Находится по координатам {_coordinates}.");
         }
     }
 }

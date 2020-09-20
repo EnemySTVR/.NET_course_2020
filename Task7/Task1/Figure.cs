@@ -5,21 +5,19 @@ using System.Text;
 
 namespace Task1
 {
-    class Figure
+    abstract class Figure
     {
         protected Point _coordinates;
         public Point Coordinates { get; }
         
         public Figure()
         { }
-        public Figure(int x, int y)
+        public Figure(int xCoordinates, int yCoordinates)
         {
-            _coordinates = new Point(x, y);
+            _coordinates = new Point(xCoordinates, yCoordinates);
         }
 
         public virtual void Draw()
-        {
-            Console.WriteLine(Coordinates);
-        }
+        { }
     }
 }

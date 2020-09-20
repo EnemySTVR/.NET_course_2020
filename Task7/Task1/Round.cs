@@ -6,34 +6,35 @@ namespace Task1
 {
     class Round : Figure
     {
-        private int _x_radius;
-        private int _y_radius;
-        private int _middle_radius;
+        private int _xRadius;
+        private int _yRadius;
+        private int _middleRadius;
         public double Perimeter
         {
             get
             {
-                return 2 * Math.PI * _middle_radius;
+                return 2 * Math.PI * _middleRadius;
             }
         }
         public double Area
         {
             get
             {
-                return Math.Pow(_middle_radius, 2) * Math.PI;
+                return Math.Pow(_middleRadius, 2) * Math.PI;
             }
         }
-        public Round(int x, int y, int x_radius, int y_radius) 
+        public Round(int x, int y, int xRadius, int yRadius) 
             :base(x, y)
         {
-            _x_radius = x_radius;
-            _y_radius = y_radius;
-            _middle_radius = (x_radius + y_radius) / 2;
+            _xRadius = xRadius;
+            _yRadius = yRadius;
+            _middleRadius = (xRadius + yRadius) / 2;
         }
 
         public override void Draw()
         {
-            Console.WriteLine($"Не правильная окружность с радиусом по оси X {_x_radius} и радиусом по оси Y {_y_radius}. Находится по координатам {_coordinates}.");
+            Console.WriteLine
+                ($"Не правильная окружность с радиусом по оси X {_xRadius} и радиусом по оси Y {_yRadius}. Находится по координатам {_coordinates}.");
         }
     }
 }

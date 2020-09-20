@@ -7,15 +7,15 @@ namespace Task4
 {
     class Player : GameObject
     {
-        private Playground _pg;
-        public Player(int x, int y, Playground pg)
-            : base(x, y)
+        private Playground _playground;
+        public Player(int xCoordinates, int yCoordinates, Playground playground)
+            : base(xCoordinates, yCoordinates)
         {
             // Конечно, круто провернуть всё это через события, но для простоты сделаем так:
             // Копируем в _pg ссылку на наш playground для того, чтобы оповещать его о наших перемещениях и взаимодействовать с другими обьектами.
-            _pg = pg;
+            _playground = playground;
             // И добавляем на playground нашего player'a
-            _pg.AddObject(this);
+            _playground.AddObject(this);
         }
 
         /*      В методах ниже проверяем возможность перемещения по полю.

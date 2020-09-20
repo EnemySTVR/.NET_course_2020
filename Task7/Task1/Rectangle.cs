@@ -25,8 +25,8 @@ namespace Task1
             }
         }
 
-        public Rectangle(int height, int width, int x, int y)
-            :base(x, y)
+        public Rectangle(int height, int width, int xCoordinates, int yCoordinates)
+            :base(xCoordinates, yCoordinates)
         {
             _height = height;
             _width = width;
@@ -34,7 +34,8 @@ namespace Task1
 
         public override void Draw()
         {
-            Console.WriteLine($"Прямоугольник со сторонами {_width} и {_height}. Находится по координатам {_coordinates}");
+            Console.WriteLine
+                ($"Прямоугольник со сторонами {_width} и {_height}. Находится по координатам {_coordinates}");
         }
     }
 }

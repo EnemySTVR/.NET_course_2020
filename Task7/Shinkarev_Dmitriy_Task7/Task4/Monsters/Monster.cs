@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Task4.Monsters
 {
-    class Monster : GameObject
+    abstract class Monster : GameObject
     {
-        public Monster(int x, int y) 
-            : base(x, y)
+        public Monster(int xCoordinates, int yCoordinates) 
+            : base(xCoordinates, yCoordinates)
         {
             // Чтобы не отвлекаться на жизнь монстров сразу пускаем их в движение.
             RandomMoving();
