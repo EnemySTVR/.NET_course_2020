@@ -16,7 +16,7 @@ namespace Task1
             Console.Write("Введи отчество пользователя: ");
             string surName = CorrectInput.Word();
             Console.Write("Введи дату рождения пользователя в формате ДД.ММ.ГГГГ: ");
-            var birth = CorrectInput.DateTime();
+            var birth = CorrectInput.Date();
 
             var user = new User(firstName, lastName, surName, birth);
             Console.WriteLine($"Отлично! Пользователь {user.LastName} {user.FirstName} {user.SurName} создан!");

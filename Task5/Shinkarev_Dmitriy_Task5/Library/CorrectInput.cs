@@ -65,9 +65,9 @@ namespace Library
             while (flag == true);
             return input;
         }
-        public static DateTime DateTime()
+        public static DateTime Date()
         {
-            DateTime result = new DateTime();
+            var result = new DateTime();
             bool flag;
             do
             {
@@ -75,12 +75,18 @@ namespace Library
                 {
                     flag = false;
                     result = Convert.ToDateTime(Console.ReadLine());
+                    if (result >= DateTime.Now)
+                    {
+                        Console.WriteLine("Введена не корректная дата.");
+                        flag = true;
+                    }
                 }
-                finally
+                catch
                 {
                     Console.WriteLine("Не удалось преобразовать дату. Попробуй снова.");
                     flag = true;
                 }
+                
             }
             while (flag == true);
             return result;
