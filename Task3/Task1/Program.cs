@@ -13,14 +13,14 @@ namespace Task1
                 ("Массив случайных чисел сгенерирован:");
             OutputArray.OneDimensional(array);
 
-            int maxValue = SearchInArray.MaxValue(array);
             Console.WriteLine
                 ("Наибольшее число в массиве:");
+            int maxValue = SearchInArray.MaxValue(array);
             Console.WriteLine(maxValue);
 
-            int minValue = SearchInArray.MinValue(array);
             Console.WriteLine
                 ("Наименьшее число в массиве:");
+            int minValue = SearchInArray.MinValue(array);
             Console.WriteLine(minValue);
 
             Sort.BubbleSort(array);
