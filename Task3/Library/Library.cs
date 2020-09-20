@@ -2,14 +2,14 @@
 
 namespace Library
 {
-    public class Filling
+    public class FillingArray
     {
-        public static void Filling_1D_array(int[] array)
+        public static void OneDimensional(int[] array)
         {
-            var rnd = new Random();
-            for (int i = 0; i < array.Length; i++) array[i] = rnd.Next(-100, 100);
+            var random = new Random();
+            for (int i = 0; i < array.Length; i++) array[i] = random.Next(-100, 100);
         }
-        public static void Filling_2d_array(int[,] array)
+        public static void TwoDimensional(int[,] array)
         {
             var rnd = new Random();
             for (int i = 0; i < array.GetLength(0); i++)
@@ -20,7 +20,7 @@ namespace Library
                 }
             }
         }
-        public static void Filling_3d_array(int[,,] array)
+        public static void ThreeDimensional(int[,,] array)
         {
             var rnd = new Random();
             for (int i = 0; i < array.GetLength(0); i++)
@@ -36,14 +36,15 @@ namespace Library
         }
     }
 
-    public static class Output
+
+    public static class OutputArray
     {
-        public static void Output_1d_array(int[] array)
+        public static void OneDimensional(int[] array)
         {
             foreach (var a in array) Console.Write(a + " ");
             Console.WriteLine();
         }
-        public static void Output_2d_array(int[,] array)
+        public static void TwoDimensional(int[,] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -54,7 +55,7 @@ namespace Library
                 Console.WriteLine();
             }
         }
-        public static void Output_d3_array(int[,,] array)
+        public static void ThreeDimensional(int[,,] array)
         {
             Console.WriteLine();
             for (int i = 0; i < array.GetLength(0); i++)
@@ -76,9 +77,9 @@ namespace Library
         }
     }
 
-    public static class Replace
+    public static class ReplaceArrayElement
     {
-        public static void Replacement_to_zero(int[,,] array)
+        public static void PositiveToZero(int[,,] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -95,9 +96,9 @@ namespace Library
             }
         }
     }
-    public static class Getter
+    public static class SearchInArray
     {
-        public static int Get_max_value(int[] array)
+        public static int MaxValue(int[] array)
         {
             int result = array[0];
             foreach (var a in array)
@@ -106,7 +107,7 @@ namespace Library
             }
             return result;
         }
-        public static int Get_min_value(int[] array)
+        public static int MinValue(int[] array)
         {
             int result = array[0];
             foreach (var a in array)
@@ -115,7 +116,7 @@ namespace Library
             }
             return result;
         }
-        public static int Get_summ_positive_numbers(int[] array)
+        public static int SummPositiveNumbers(int[] array)
         {
             int result = 0;
             foreach (var a in array)
@@ -127,7 +128,7 @@ namespace Library
             }
             return result;
         }
-        public static int Get_summ_even_index_numbers(int[,] array)
+        public static int SummEvenIndexElements(int[,] array)
         {
             int result = 0;
             for (int i = 0; i < array.GetLength(0); i++)

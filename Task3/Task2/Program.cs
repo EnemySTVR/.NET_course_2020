@@ -8,15 +8,15 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            var _3d_array = new int[3, 3, 3];
+            var array = new int[3, 3, 3];
 
-            Filling.Filling_3d_array(_3d_array);
+            FillingArray.ThreeDimensional(array);
             Console.WriteLine("Сгененрирован трехмерный массив:");
-            Output.Output_d3_array(_3d_array);
+            OutputArray.ThreeDimensional(array);
 
-            Replace.Replacement_to_zero(_3d_array);
+            ReplaceArrayElement.PositiveToZero(array);
             Console.WriteLine("Все положительные элементы массива заменены на нули:");
-            Output.Output_d3_array(_3d_array);
+            OutputArray.ThreeDimensional(array);
             Console.ReadLine();
         }
     }

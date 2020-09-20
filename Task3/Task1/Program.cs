@@ -8,26 +8,25 @@ namespace Task1
         static void Main(string[] args)
         {
             var array = new int[10];
+            FillingArray.OneDimensional(array);
+            Console.WriteLine
+                ("Массив случайных чисел сгенерирован:");
+            OutputArray.OneDimensional(array);
 
-            Filling.Filling_1D_array(array);
-            Console.WriteLine("Массив случайных чисел сгенерирован:");
-            Output.Output_1d_array(array);
-            #region Отступ.
-            Console.WriteLine();
-            #endregion
-            Console.WriteLine("Наибольшее число в массиве:");
-            Console.WriteLine(Getter.Get_max_value(array));
-            #region Отступ.
-            Console.WriteLine();
-            #endregion
-            Console.WriteLine("Наименьшее число в массиве:");
-            Console.WriteLine(Getter.Get_min_value(array));
-            #region Отступ.
-            Console.WriteLine();
-            #endregion
+            int maxValue = SearchInArray.MaxValue(array);
+            Console.WriteLine
+                ("Наибольшее число в массиве:");
+            Console.WriteLine(maxValue);
+
+            int minValue = SearchInArray.MinValue(array);
+            Console.WriteLine
+                ("Наименьшее число в массиве:");
+            Console.WriteLine(minValue);
+
             Sort.BubbleSort(array);
-            Console.WriteLine("Массив отсортирован:");
-            Output.Output_1d_array(array);
+            Console.WriteLine
+                ("Массив отсортирован:");
+            OutputArray.OneDimensional(array);
 
             Console.ReadLine();
         }

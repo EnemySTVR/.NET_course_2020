@@ -8,14 +8,14 @@ namespace Task3
         static void Main(string[] args)
         {
             var array = new int[10];
+            FillingArray.OneDimensional(array);
+            Console.WriteLine
+                ("Массив случайных чисел сгенерирован:");
+            OutputArray.OneDimensional(array);
 
-            Filling.Filling_1D_array(array);
-            Console.WriteLine("Массив случайных чисел сгенерирован:");
-            Output.Output_1d_array(array);
-            #region Отступ.
-            Console.WriteLine();
-            #endregion
-            Console.WriteLine($"Сумма всех не отрицательных чисел массива равна: {Getter.Get_summ_positive_numbers(array)}");
+            int result = SearchInArray.SummPositiveNumbers(array);
+            Console.WriteLine
+                ($"Сумма всех не отрицательных чисел массива равна: {result}");
             Console.ReadLine();
         }
     }
