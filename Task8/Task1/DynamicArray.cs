@@ -80,7 +80,8 @@ namespace Task1
                 _array[_length] = obj;
                 _length++;
             }
-            else throw new ArgumentException();
+            else 
+                throw new ArgumentException();
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace Task1
         /// <param name="array"></param>
         public void AddRange(object[] array)
         {
-            foreach(var obj in array)
+            foreach (var obj in array)
             {
                 Type objType = obj.GetType();
                 var constructor = objType.GetConstructor(Type.EmptyTypes);
@@ -121,14 +122,14 @@ namespace Task1
         public bool Remove(object obj)
         {
             bool result = false;
-            for(int i = 0; i < _array.Length; i++)
+            for (int i = 0; i < _array.Length; i++)
             {
-                while(_array[i] == obj)
+                while (_array[i] == obj)
                 {
-                    for(int j = i; j < _array.Length - 1; j++)
+                    for (int j = i; j < _array.Length - 1; j++)
                     {
                         _array[j] = _array[j + 1];
-                        if(j == _array.Length - 2)
+                        if (j == _array.Length - 2)
                         {
                             _array[j + 1] = null;
                         }
@@ -172,7 +173,7 @@ namespace Task1
                     _array = temp;
                 }
 
-                if(index < _length)
+                if (index < _length)
                 {
                     for (int i = _length; i > index; i--)
                     {
@@ -184,7 +185,8 @@ namespace Task1
                 _array[index] = obj;
                 _length++;
             }
-            else throw new ArgumentException();
+            else 
+                throw new ArgumentException();
         }
 
         public IEnumerator GetEnumerator()

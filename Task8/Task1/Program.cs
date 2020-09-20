@@ -6,43 +6,43 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Привет. Лучше смотреть код. Но я покажу тут, что всё работает.");
-            Console.WriteLine("Создан DynamicArray. Сейчас он пуст.");
-            var dm = new DynamicArray();
-            Console.WriteLine("Созданы 3 тестовых обьекта. Они пронумерованы.");
-            var to = new Test_object();
-            var to1 = new Test_object1();
-            var to2 = new Test_object2();
-
-
-            Console.WriteLine("С помощью метода Add добавляем их поочередно и выводим на экран:");
-            dm.Add(to);
-            dm.Add(to1);
-            dm.Add(to2);
-            ShowDynamicArray(dm);
-            
-            Console.WriteLine("С помощью метода Remove удалим тетовый метод с номером 1.");
-            dm.Remove(to1);
-            ShowDynamicArray(dm);
-
-            Console.WriteLine("С помощью метода Insert вставим тестовый метод с номером 1 по индексу 1");
-            dm.Insert(to1, 1);
-            ShowDynamicArray(dm);
-
-            Console.WriteLine("А сейчас создадим и с помощью метода AddRange добавим массив из тех же трёх тестовых объектов.");
-            var arr = new object[3] { to, to1, to2 };
-            dm.AddRange(arr);
-            ShowDynamicArray(dm);
-
-
+            Console.WriteLine
+                ("Привет. Лучше смотреть код. Но я покажу тут, что всё работает.");
+            Console.WriteLine
+                ("Создан DynamicArray. Сейчас он пуст.");
+            var array = new DynamicArray();
+            Console.WriteLine
+                ("Созданы 3 тестовых обьекта. Они пронумерованы.");
+            var testObject = new Test_object();
+            var testObject1 = new Test_object1();
+            var testObject2 = new Test_object2();
+            Console.WriteLine
+                ("С помощью метода Add добавляем их поочередно и выводим на экран:");
+            array.Add(testObject);
+            array.Add(testObject1);
+            array.Add(testObject2);
+            ShowDynamicArray(array);
+            Console.WriteLine
+                ("С помощью метода Remove удалим тетовый метод с номером 1.");
+            array.Remove(testObject1);
+            ShowDynamicArray(array);
+            Console.WriteLine
+                ("С помощью метода Insert вставим тестовый метод с номером 1 по индексу 1");
+            array.Insert(testObject1, 1);
+            ShowDynamicArray(array);
+            Console.WriteLine
+                ("А сейчас создадим и с помощью метода AddRange добавим массив из тех же трёх тестовых объектов.");
+            var arr = new object[3] { testObject, testObject1, testObject2 };
+            array.AddRange(arr);
+            ShowDynamicArray(array);
             Console.ReadLine();
         }
 
-        static void ShowDynamicArray(DynamicArray dm)
+        static void ShowDynamicArray(DynamicArray array)
         {
-            foreach (var o in dm)
+            foreach (var current in array)
             {
-                Console.WriteLine(o);
+                Console.WriteLine(current);
             }
         }
     }
