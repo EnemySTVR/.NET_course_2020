@@ -22,41 +22,40 @@ namespace Task4
             }
         }
 
-        public MyString(char[] arr)
+        public MyString(char[] array)
         {
-            _array = arr;
+            _array = array;
         }
-        public MyString(string str)
+        public MyString(string row)
         {
-            _array = str.ToCharArray();
+            _array = row.ToCharArray();
         }
 
-        public static MyString operator +(MyString s1, MyString s2)
+        public static MyString operator +(MyString rowLeft, MyString rowRight)
         {
-            int new_count = s1.Count + s2.Count;
-            char[] result = new char[new_count];
+            int newCount = rowLeft.Count + rowRight.Count;
+            char[] result = new char[newCount];
 
-            for (int i = 0; i < s1.Count; i++)
+            for (int i = 0; i < rowLeft.Count; i++)
             {
-                result[i] = s1[i];
+                result[i] = rowLeft[i];
             }
 
-            int added_array_index = 0;
-            for (int i = s1.Count; i < new_count; i++, added_array_index++)
+            int addedArrayIndex = 0;
+            for (int i = rowLeft.Count; i < newCount; i++, addedArrayIndex++)
             {
-                result[i] = s2[added_array_index];
+                result[i] = rowRight[addedArrayIndex];
             }
 
             return new MyString(result);
         }
-        public static MyString operator -(MyString s1, MyString s2)
+        public static MyString operator -(MyString rowLeft, MyString rowRight)
         {
-            char[] temp = s1.ToCharArray();
+            char[] temp = rowLeft.ToCharArray();
             int bingo = 0;
-
-            for (int i = 0; i < s1.Count; i++)
+            for (int i = 0; i < rowLeft.Count; i++)
             {
-                if(s1[i] == s2[bingo])
+                if(rowLeft[i] == rowRight[bingo])
                 {
                     bingo++;
                 }
@@ -64,34 +63,31 @@ namespace Task4
                 {
                     bingo = 0;
                 }
-                if (bingo == s2.Count)
+                if (bingo == rowRight.Count)
                 {
-                    int first_index = i - s2.Count + 1;
-                    int last_index = i;
-                    for(int j = first_index; j <= last_index; j++)
+                    int firstIndex = i - rowRight.Count + 1;
+                    int lastIndex = i;
+                    for(int j = firstIndex; j <= lastIndex; j++)
                     {
                         temp[j] = '\0';
                     }
-
                     bingo = 0;
                 }
             }
-
             temp = temp.Where(x => x != '\0').ToArray();
-
             return new MyString(temp);
         }
-        public static bool operator ==(MyString s1, MyString s2)
+        public static bool operator ==(MyString rowLeft, MyString rowRight)
         {
-            char[] array1 = s1.ToCharArray();
-            char[] array2 = s2.ToCharArray();
-            return Enumerable.SequenceEqual(array1, array2);
+            char[] arrayLeft = rowLeft.ToCharArray();
+            char[] arrayRight = rowRight.ToCharArray();
+            return Enumerable.SequenceEqual(arrayLeft, arrayRight);
         }
-        public static bool operator !=(MyString s1, MyString s2)
+        public static bool operator !=(MyString rowLeft, MyString rowRight)
         {
-            char[] array1 = s1.ToCharArray();
-            char[] array2 = s2.ToCharArray();
-            return !Enumerable.SequenceEqual(array1, array2);
+            char[] arrayLeft = rowLeft.ToCharArray();
+            char[] arrayRight = rowRight.ToCharArray();
+            return !Enumerable.SequenceEqual(arrayLeft, arrayRight);
         }
 
         public int Count => ((ICollection)_array).Count;

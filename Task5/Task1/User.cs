@@ -6,17 +6,17 @@ namespace Task1
 {
     class User
     {
-        private string _first_name;
-        private string _last_name;
-        private string _sur_name;
+        private string _firstName;
+        private string _lastName;
+        private string _surName;
         private int _age;
         private DateTime _birth;
 
-        public User(string first_name, string last_name, string sur_name, DateTime birth)
+        public User(string firstName, string lastName, string surName, DateTime birth)
         {
-            _first_name = first_name;
-            _last_name = last_name;
-            _sur_name = sur_name;
+            _firstName = firstName;
+            _lastName = lastName;
+            _surName = surName;
             _age = DateTime.Now.Year - birth.Year;
             if (DateTime.Now.DayOfYear < birth.DayOfYear)
             {
@@ -29,21 +29,21 @@ namespace Task1
         {
             get
             {
-                return _first_name;
+                return _firstName;
             }
         }
         public string LastName
         {
             get
             {
-                return _last_name;
+                return _lastName;
             }
         }
         public string SurName
         {
             get
             {
-                return _sur_name;
+                return _surName;
             }
         }
         public int Age

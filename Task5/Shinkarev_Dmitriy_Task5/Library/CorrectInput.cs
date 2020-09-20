@@ -12,12 +12,11 @@ namespace Library
             bool flag = true;
             string input;
             int result = 0;
-
-            var reg = new Regex(@"^([-]?\d+)$");
+            var regex = new Regex(@"^([-]?\d+)$");
             do
             {
                 input = Console.ReadLine();
-                if (reg.IsMatch(input))
+                if (regex.IsMatch(input))
                 {
                     result = Int32.Parse(input);
                     flag = false;
@@ -33,12 +32,11 @@ namespace Library
             bool flag = true;
             string input;
             int result = 0;
-
-            var reg = new Regex(@"^\d+$");
+            var regex = new Regex(@"^\d+$");
             do
             {
                 input = Console.ReadLine();
-                if (reg.IsMatch(input))
+                if (regex.IsMatch(input))
                 {
                     result = Int32.Parse(input);
                     flag = false;
@@ -53,11 +51,11 @@ namespace Library
         {
             bool flag = true;
             string input;
-            var reg = new Regex(@"^(([A-я]+|[^\W0-9_]))$");
+            var regex = new Regex(@"^(([A-я]+|[^\W0-9_]))$");
             do
             {
                 input = Console.ReadLine();
-                if (reg.IsMatch(input))
+                if (regex.IsMatch(input))
                 {
                     flag = false;
                 }
@@ -71,7 +69,6 @@ namespace Library
         {
             DateTime result = new DateTime();
             bool flag;
-
             do
             {
                 try
@@ -79,14 +76,13 @@ namespace Library
                     flag = false;
                     result = Convert.ToDateTime(Console.ReadLine());
                 }
-                catch
+                finally
                 {
                     Console.WriteLine("Не удалось преобразовать дату. Попробуй снова.");
                     flag = true;
                 }
             }
             while (flag == true);
-            
             return result;
         }
     }

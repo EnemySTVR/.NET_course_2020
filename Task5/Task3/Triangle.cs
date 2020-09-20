@@ -19,8 +19,8 @@ namespace Task3
 
         public double GetArea()
         {
-            double p = GetPerimeter() / 2;
-            return Math.Sqrt(p * (p - _a) * (p - _b) * (p - _c));
+            double halfPerimeter = GetPerimeter() / 2;
+            return Math.Sqrt(halfPerimeter * (halfPerimeter - _a) * (halfPerimeter - _b) * (halfPerimeter - _c));
         }
         public double GetPerimeter()
         {
