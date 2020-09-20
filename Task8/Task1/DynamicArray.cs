@@ -160,15 +160,15 @@ namespace Task1
                 if (_array.Length == _length)
                 {
                     var temp = new object[_length + 8];
-                    var tmp_index = 0;
-                    for (int i = 0; i < _array.Length; i++, tmp_index++)
+                    var tempIndex = 0;
+                    for (int i = 0; i < _array.Length; i++, tempIndex++)
                     {
                         if (i == index)
                         {
                             temp[i] = obj;
-                            tmp_index++;
+                            tempIndex++;
                         }
-                        temp[tmp_index] = _array[i];
+                        temp[tempIndex] = _array[i];
                     }
                     _array = temp;
                 }
