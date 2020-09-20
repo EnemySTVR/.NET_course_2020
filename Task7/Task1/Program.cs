@@ -18,20 +18,13 @@ namespace Task1
         public static void MainMenu(List<Figure> figures)
         {
             Console.Clear();
-            Console.WriteLine
-                ("1.Создать линию");
-            Console.WriteLine
-                ("2.Создать откужность");
-            Console.WriteLine
-                ("3.Создать прямоугольник");
-            Console.WriteLine
-                ("4.Создать круг");
-            Console.WriteLine
-                ("5.Создать кольцо");
-            Console.WriteLine
-                ("6.Вывести на экран созданные фигуры");
-            Console.Write
-                ("Введите цифру соответствующую пункту меню: ");
+            Console.WriteLine("1.Создать линию");
+            Console.WriteLine("2.Создать откужность");
+            Console.WriteLine("3.Создать прямоугольник");
+            Console.WriteLine("4.Создать круг");
+            Console.WriteLine("5.Создать кольцо");
+            Console.WriteLine("6.Вывести на экран созданные фигуры");
+            Console.Write("Введите цифру соответствующую пункту меню: ");
 
             string input = Console.ReadLine();
             switch (input)
@@ -63,18 +56,13 @@ namespace Task1
         public static void CreateLine(List<Figure> figures)
         {
             Console.Clear();
-            Console.WriteLine
-                ("Введите координаты точки А.");
-            Console.Write
-                ("X: ");
+            Console.WriteLine("Введите координаты точки А.");
+            Console.Write("X: ");
             int aXCoordinates = CorrectInput.Number();
-            Console.Write
-                ("Y: ");
+            Console.Write("Y: ");
             int aYCoordinates = CorrectInput.Number();
-            Console.WriteLine
-                ("Введите координаты точки B.");
-            Console.Write
-                ("X: ");
+            Console.WriteLine("Введите координаты точки B.");
+            Console.Write("X: ");
             int bXCoordinates = CorrectInput.Number();
             Console.Write("Y: ");
             int bYCoordinates = CorrectInput.Number();
@@ -86,21 +74,15 @@ namespace Task1
         public static void CreateRound(List<Figure> figures)
         {
             Console.Clear();
-            Console.WriteLine
-                ("Введите координаты.");
-            Console.Write
-                ("X: ");
+            Console.WriteLine("Введите координаты.");
+            Console.Write("X: ");
             int xCoordinates = CorrectInput.Number();
-            Console.Write
-                ("Y: ");
+            Console.Write("Y: ");
             int yCoordinates = CorrectInput.Number();
-            Console.WriteLine
-                ("Введите радиусы по осям.");
-            Console.Write
-                ("X: ");
+            Console.WriteLine("Введите радиусы по осям.");
+            Console.Write("X: ");
             int radiusX = CorrectInput.PositiveNumber();
-            Console.Write
-                ("Y: ");
+            Console.Write("Y: ");
             int radiusY = CorrectInput.PositiveNumber();
 
             figures.Add(new Round(xCoordinates, yCoordinates, radiusX, radiusY));
@@ -110,19 +92,14 @@ namespace Task1
         public static void CreateRectangle(List<Figure> figures)
         {
             Console.Clear();
-            Console.WriteLine
-                ("Введите координаты.");
-            Console.Write
-                ("X: ");
+            Console.WriteLine("Введите координаты.");
+            Console.Write("X: ");
             int xCoordinates = CorrectInput.Number();
-            Console.Write
-                ("Y: ");
+            Console.Write("Y: ");
             int yCoordinates = CorrectInput.Number();
-            Console.Write
-                ("Введите высоту: ");
+            Console.Write("Введите высоту: ");
             int height = CorrectInput.PositiveNumber();
-            Console.Write
-                ("Введите ширину: ");
+            Console.Write("Введите ширину: ");
             int width = CorrectInput.PositiveNumber();
 
             figures.Add(new Rectangle(xCoordinates, yCoordinates, width, width));
@@ -132,16 +109,12 @@ namespace Task1
         public static void CreateCorrectRound(List<Figure> figures)
         {
             Console.Clear();
-            Console.WriteLine
-                ("Введите координаты.");
-            Console.Write
-                ("X: ");
+            Console.WriteLine("Введите координаты.");
+            Console.Write("X: ");
             int x = CorrectInput.Number();
-            Console.Write
-                ("Y: ");
+            Console.Write("Y: ");
             int y = CorrectInput.Number();
-            Console.Write
-                ("Введите радиус: ");
+            Console.Write("Введите радиус: ");
             int radius = CorrectInput.PositiveNumber();
 
             figures.Add(new CorrectRound(x, y, radius));
@@ -151,19 +124,14 @@ namespace Task1
         public static void CreateRing(List<Figure> figures)
         {
             Console.Clear();
-            Console.WriteLine
-                ("Введите координаты.");
-            Console.Write
-                ("X: ");
+            Console.WriteLine("Введите координаты.");
+            Console.Write("X: ");
             int xCoordinates = CorrectInput.Number();
-            Console.Write
-                ("Y: ");
+            Console.Write("Y: ");
             int yCoordinates = CorrectInput.Number();
-            Console.Write
-                ("Введите внешний радиус: ");
+            Console.Write("Введите внешний радиус: ");
             int externalRadius = CorrectInput.PositiveNumber();
-            Console.Write
-                ("Введите внутренний радиус: ");
+            Console.Write("Введите внутренний радиус: ");
             int interiorRadius = CorrectInput.PositiveNumber();
 
             figures.Add(new Ring(xCoordinates, yCoordinates, externalRadius, interiorRadius));

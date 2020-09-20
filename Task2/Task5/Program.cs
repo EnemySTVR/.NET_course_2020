@@ -15,8 +15,7 @@ namespace Task5
                     result += i;
                 }
             }
-            Console.WriteLine
-                ($"Сумма всех чисел меньше 1000, кратных 3 или 5 равна {result}.");
+            Console.WriteLine($"Сумма всех чисел меньше 1000, кратных 3 или 5 равна {result}.");
             Console.ReadLine();
         }
     }

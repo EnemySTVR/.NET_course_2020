@@ -9,13 +9,11 @@ namespace Task3
         {
             var array = new int[10];
             FillingArray.OneDimensional(array);
-            Console.WriteLine
-                ("Массив случайных чисел сгенерирован:");
+            Console.WriteLine("Массив случайных чисел сгенерирован:");
             OutputArray.OneDimensional(array);
 
             int result = SearchInArray.SummPositiveNumbers(array);
-            Console.WriteLine
-                ($"Сумма всех не отрицательных чисел массива равна: {result}");
+            Console.WriteLine($"Сумма всех не отрицательных чисел массива равна: {result}");
             Console.ReadLine();
         }
     }

@@ -7,12 +7,10 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine
-                ("Введи предложение из нескольких слов:");
+            Console.WriteLine("Введи предложение из нескольких слов:");
             string input = Console.ReadLine();
 
-            var spliters = new char[] 
-                { ' ', ',', '.', ';', ':', '"', '!', '?' };
+            var spliters = new char[] { ' ', ',', '.', ';', ':', '"', '!', '?' };
             var words = input.Split(spliters, StringSplitOptions.RemoveEmptyEntries);
             int charCount = 0;
             int wordCount = 0;
@@ -22,8 +20,7 @@ namespace Task1
                 wordCount++;
             }
             var result = charCount / wordCount;
-            Console.WriteLine
-                ($"Среднее кол-во букв в словах этого предложения равно: {result}");
+            Console.WriteLine($"Среднее кол-во букв в словах этого предложения равно: {result}");
             Console.ReadLine();
         }
     }

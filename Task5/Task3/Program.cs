@@ -7,16 +7,12 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine
-                ("Укажите длинну сторон треугольника.");
-            Console.Write
-                ("Сторона A:");
+            Console.WriteLine("Укажите длинну сторон треугольника.");
+            Console.Write("Сторона A:");
             int a = CorrectInput.PositiveNumber();
-            Console.Write
-                ("Сторона B:");
+            Console.Write("Сторона B:");
             int b = CorrectInput.PositiveNumber();
-            Console.Write
-                ("Сторона C:");
+            Console.Write("Сторона C:");
             int c = CorrectInput.PositiveNumber();
 
             var triangle = new Triangle(a, b, c);

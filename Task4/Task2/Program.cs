@@ -7,11 +7,9 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine
-                ("Введите первую строку:");
+            Console.WriteLine("Введите первую строку:");
             string row1 = Console.ReadLine();
-            Console.WriteLine
-                ("Введите вторую строку:");
+            Console.WriteLine("Введите вторую строку:");
             string row2 = Console.ReadLine();
             
             string result = "";
@@ -24,8 +22,7 @@ namespace Task2
 
                 result += i;
             }
-            Console.WriteLine
-                ($"Результирующая строка: {result}");
+            Console.WriteLine($"Результирующая строка: {result}");
             Console.ReadLine();
         }
     }

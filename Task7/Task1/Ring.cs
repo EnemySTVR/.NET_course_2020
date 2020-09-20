@@ -47,8 +47,7 @@ namespace Task1
 
         public override void Draw()
         {
-            Console.WriteLine
-                ($"Кольцо с внешним радиусом {_externalRound.Radius} и внутренним радиусом {_interiorRound.Radius}. Находится по координатам {_coordinates}.");
+            Console.WriteLine($"Кольцо с внешним радиусом {_externalRound.Radius} и внутренним радиусом {_interiorRound.Radius}. Находится по координатам {_coordinates}.");
         }
     }
 }

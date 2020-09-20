@@ -7,8 +7,7 @@ namespace Task2
         static void Main(string[] args)
         {
 			var progression = new GeometricProgression(2, 2);
-			Console.WriteLine
-				("Geometric Progression:");
+			Console.WriteLine("Geometric Progression:");
 			PrintSeries(progression);
 		}
 

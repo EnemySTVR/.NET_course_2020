@@ -6,32 +6,25 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine
-                ("Привет. Лучше смотреть код. Но я покажу тут, что всё работает.");
-            Console.WriteLine
-                ("Создан DynamicArray. Сейчас он пуст.");
+            Console.WriteLine("Привет. Лучше смотреть код. Но я покажу тут, что всё работает.");
+            Console.WriteLine("Создан DynamicArray. Сейчас он пуст.");
             var array = new DynamicArray();
-            Console.WriteLine
-                ("Созданы 3 тестовых обьекта. Они пронумерованы.");
+            Console.WriteLine("Созданы 3 тестовых обьекта. Они пронумерованы.");
             var testObject = new Test_object();
             var testObject1 = new Test_object1();
             var testObject2 = new Test_object2();
-            Console.WriteLine
-                ("С помощью метода Add добавляем их поочередно и выводим на экран:");
+            Console.WriteLine("С помощью метода Add добавляем их поочередно и выводим на экран:");
             array.Add(testObject);
             array.Add(testObject1);
             array.Add(testObject2);
             ShowDynamicArray(array);
-            Console.WriteLine
-                ("С помощью метода Remove удалим тетовый метод с номером 1.");
+            Console.WriteLine("С помощью метода Remove удалим тетовый метод с номером 1.");
             array.Remove(testObject1);
             ShowDynamicArray(array);
-            Console.WriteLine
-                ("С помощью метода Insert вставим тестовый метод с номером 1 по индексу 1");
+            Console.WriteLine("С помощью метода Insert вставим тестовый метод с номером 1 по индексу 1");
             array.Insert(testObject1, 1);
             ShowDynamicArray(array);
-            Console.WriteLine
-                ("А сейчас создадим и с помощью метода AddRange добавим массив из тех же трёх тестовых объектов.");
+            Console.WriteLine("А сейчас создадим и с помощью метода AddRange добавим массив из тех же трёх тестовых объектов.");
             var arr = new object[3] { testObject, testObject1, testObject2 };
             array.AddRange(arr);
             ShowDynamicArray(array);

@@ -37,8 +37,7 @@ namespace Task1
 
         public override void Draw()
         {
-            Console.WriteLine
-                ($"Линия от {_pointA} до {_pointB}. Находится по координатам {_coordinates}");
+            Console.WriteLine($"Линия от {_pointA} до {_pointB}. Находится по координатам {_coordinates}");
         }
     }
 }

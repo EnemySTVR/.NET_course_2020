@@ -33,8 +33,7 @@ namespace Task1
 
         public override void Draw()
         {
-            Console.WriteLine
-                ($"Не правильная окружность с радиусом по оси X {_xRadius} и радиусом по оси Y {_yRadius}. Находится по координатам {_coordinates}.");
+            Console.WriteLine($"Не правильная окружность с радиусом по оси X {_xRadius} и радиусом по оси Y {_yRadius}. Находится по координатам {_coordinates}.");
         }
     }
 }

@@ -6,8 +6,7 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine
-                ("Введи число N (Только не слишком большое):");
+            Console.WriteLine("Введи число N (Только не слишком большое):");
             string input = Console.ReadLine();
             int n = Int32.Parse(input);
             int rowLenght = (n * 2) - 1;

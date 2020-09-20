@@ -39,8 +39,7 @@ namespace Task1
 
         public override void Draw()
         {
-            Console.WriteLine
-                ($"Правильная окружность с радиусом {_radius}. Находится по координатам {_coordinates}.");
+            Console.WriteLine($"Правильная окружность с радиусом {_radius}. Находится по координатам {_coordinates}.");
         }
     }
 }

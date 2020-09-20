@@ -39,10 +39,10 @@ namespace Task2
             }
         }
 
-        public Round(int x, int y, int r)
+        public Round(int xCoordinates, int yCoordinates, int radius)
         {
-            _coordinates = new Point(x, y);
-            _radius = r;
+            _coordinates = new Point(xCoordinates, yCoordinates);
+            _radius = radius;
         }
     }
 

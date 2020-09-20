@@ -78,8 +78,7 @@ namespace Task4
                     "{0:00}:{1:00}:{2:00}.{3:00}",
                     ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds
                 );
-            Console.WriteLine
-                ($"Время исполнения {numberOfRepetitions} сложений {delegatedMethodName}: {elapsedTime}");
+            Console.WriteLine($"Время исполнения {numberOfRepetitions} сложений {delegatedMethodName}: {elapsedTime}");
 
         }
     }

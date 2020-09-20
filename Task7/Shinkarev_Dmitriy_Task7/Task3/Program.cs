@@ -29,14 +29,14 @@ namespace Task3
 			}
 		}
 
-		static void GetObjectOfIndex (IIndexable collection, int index)
+		static void GetObjectOfIndex(IIndexable collection, int index)
         {
             try
             {
 
                 Console.WriteLine($"Объект в <{collection.ToString()}> с индексом {index}: {collection[index]}");
 			}
-			catch(IndexOutOfRangeException e)
+			catch (IndexOutOfRangeException e)
 			{
                 Console.WriteLine(e.Message);
 			}

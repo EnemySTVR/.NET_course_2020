@@ -6,8 +6,7 @@ namespace Task4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine
-                ("Введи число N (Только не слишком большое):");
+            Console.WriteLine("Введи число N (Только не слишком большое):");
             int n = Int32.Parse(Console.ReadLine());
             int rowLenght = (n * 2) + 1;
             int leftPointer = rowLenght / 2;

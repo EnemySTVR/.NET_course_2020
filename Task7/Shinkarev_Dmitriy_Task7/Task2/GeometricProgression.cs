@@ -6,29 +6,31 @@ namespace Task2
 {
     class GeometricProgression : ISeries
     {
-		double start, step, current;
+		double _start;
+		double _step;
+		double _current;
 
 		public GeometricProgression(double start, double step)
 		{
-			this.start = start;
-			this.step = step;
-			current = start;
+			_start = start;
+			_step = step;
+			_current = start;
 		}
 
 		public double GetCurrent()
 		{
-			return current;
+			return _current;
 		}
 
 		public bool MoveNext()
 		{
-			current *= step;
+			_current *= _step;
 			return true;
 		}
 
 		public void Reset()
 		{
-			current = start;
+			_current = _start;
 		}
 	}
 }

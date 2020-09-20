@@ -34,8 +34,7 @@ namespace Task1
 
         public override void Draw()
         {
-            Console.WriteLine
-                ($"Прямоугольник со сторонами {_width} и {_height}. Находится по координатам {_coordinates}");
+            Console.WriteLine($"Прямоугольник со сторонами {_width} и {_height}. Находится по координатам {_coordinates}");
         }
     }
 }
