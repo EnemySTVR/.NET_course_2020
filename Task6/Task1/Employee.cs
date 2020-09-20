@@ -6,16 +6,16 @@ namespace Task1
 {
     class Employee : User
     {
-        private DateTime _date_of_make;
+        private DateTime _dateOfMake;
         /// <summary>
         /// Returns the number of years of work.
         /// </summary>
-        public int Length_of_work
+        public int LengthOfWork
         { 
             get
             {
-                var result = DateTime.Now.Year - _date_of_make.Year;
-                if (DateTime.Now.DayOfYear < _date_of_make.DayOfYear)
+                var result = DateTime.Now.Year - _dateOfMake.Year;
+                if (DateTime.Now.DayOfYear < _dateOfMake.DayOfYear)
                 {
                     result--;
                 }
@@ -24,11 +24,11 @@ namespace Task1
         }
         public string Position { get; set; }
         
-        public Employee(string position, string first_name, string last_name, string sur_name, DateTime birth) 
-            : base(first_name, last_name, sur_name, birth)
+        public Employee(string position, string firstName, string lastName, string surName, DateTime birth) 
+            : base(firstName, lastName, surName, birth)
         {
             Position = position;
-            _date_of_make = DateTime.Now;
+            _dateOfMake = DateTime.Now;
         }
 
 

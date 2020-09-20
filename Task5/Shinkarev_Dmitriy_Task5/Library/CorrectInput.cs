@@ -22,7 +22,8 @@ namespace Library
                     flag = false;
                 }
                 else
-                    Console.WriteLine("Это должно быть целое число.");
+                    Console.WriteLine
+                        ("Это должно быть целое число.");
             }
             while (flag == true);
             return result;
@@ -42,7 +43,8 @@ namespace Library
                     flag = false;
                 }
                 else
-                    Console.WriteLine("Это должно быть положительное целое число.");
+                    Console.WriteLine
+                        ("Это должно быть положительное целое число.");
             }
             while (flag == true);
             return result;
@@ -60,7 +62,8 @@ namespace Library
                     flag = false;
                 }
                 else
-                    Console.WriteLine("Слово должно состоять только из букв.");
+                    Console.WriteLine
+                        ("Слово должно состоять только из букв.");
             }
             while (flag == true);
             return input;
@@ -78,7 +81,8 @@ namespace Library
                 }
                 finally
                 {
-                    Console.WriteLine("Не удалось преобразовать дату. Попробуй снова.");
+                    Console.WriteLine
+                        ("Не удалось преобразовать дату. Попробуй снова.");
                     flag = true;
                 }
             }

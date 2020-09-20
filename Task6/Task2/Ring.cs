@@ -6,33 +6,32 @@ namespace Task2
 {
     class Ring : Round
     {
-        private Round interior_round;
+        private Round interiorRound;
         public int InteriorRadius
         {
             get
             {
-                return interior_round.Radius;
+                return interiorRound.Radius;
             }
         }
         public new double Lenght
         {
             get
             {
-                return base.Lenght + interior_round.Lenght;
+                return base.Lenght + interiorRound.Lenght;
             }
         }
         public new double Area
         {
             get
             {
-                return base.Area - interior_round.Area;
+                return base.Area - interiorRound.Area;
             }
         }
-        public Ring(int x, int y, int external_radius, int interior_radius)
-            :base(x, y, external_radius)
+        public Ring(int xCoordinates, int yCoordinates, int externalRadius, int interiorRadius)
+            :base(xCoordinates, yCoordinates, externalRadius)
         {
-            interior_round = new Round(x, y, interior_radius);
-
+            interiorRound = new Round(xCoordinates, yCoordinates, interiorRadius);
         }
     }
 }
