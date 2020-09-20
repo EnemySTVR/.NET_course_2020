@@ -6,38 +6,26 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            string input;
-            int n;
-            int row_lenght;
-
-            int left_pointer;
-            int right_pointer;
-
-            Console.WriteLine("Введи число N (Только не слишком большое):");
-            input = Console.ReadLine();
-            n = Int32.Parse(input);
-            row_lenght = (n * 2) - 1;
-            left_pointer = row_lenght / 2;
-            right_pointer = row_lenght / 2;
-
-            char[] row = new char[row_lenght];
-
-
-            Console.WriteLine();
-
+            Console.WriteLine
+                ("Введи число N (Только не слишком большое):");
+            string input = Console.ReadLine();
+            int n = Int32.Parse(input);
+            int rowLenght = (n * 2) - 1;
+            int leftPointer = rowLenght / 2;
+            int rightPointer = rowLenght / 2;
+            char[] row = new char[rowLenght];
             for(int i = 0; i < n; i++)
             {
-                row[left_pointer] = '*';
-                row[right_pointer] = '*';
-                left_pointer--;
-                right_pointer++;
+                row[leftPointer] = '*';
+                row[rightPointer] = '*';
+                leftPointer--;
+                rightPointer++;
                 foreach(var c in row)
                 {
                     Console.Write(c);
                 }
                 Console.WriteLine();
             }
-
             Console.ReadLine();
         }
     }

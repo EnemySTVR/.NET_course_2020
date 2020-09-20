@@ -6,15 +6,9 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            int n;
-            string input;
-
             Console.WriteLine("Введи число N (Только не слишком большое):");
-            input = Console.ReadLine();
-            n = Int32.Parse(input);
-
-            Console.WriteLine();
-
+            string input = Console.ReadLine();
+            int n = Int32.Parse(input);
             for(int i = 1; i <= n; i++)
             {
                 for (int j = 0; j < i; j++)
@@ -23,7 +17,6 @@ namespace Task2
                 }
                 Console.WriteLine();
             }
-
             Console.ReadLine();
         }
     }

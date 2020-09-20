@@ -7,21 +7,16 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            int a;
-            int b;
-            int result;
-
-            Console.WriteLine("Привет! Эта программа позволяет вычислить площадь прямоугольника по его сторонам A и B.");
-
+            Console.WriteLine
+                ("Привет! Эта программа позволяет вычислить площадь прямоугольника по его сторонам A и B.");
             Console.Write("Введи длинну стороны A: ");
-            a = InputCorrectValue();
-            
+            int sideA = InputCorrectValue();
             Console.Write("Введи длинну стороны B: ");
-            b = InputCorrectValue();
-            
-            result = a * b;
+            int sideB = InputCorrectValue();
 
-            Console.WriteLine($"Площадь прямоугольника при сторонах {a} и {b} равна {result}.");
+            int result = sideA * sideB;
+            Console.WriteLine
+                ($"Площадь прямоугольника при сторонах {sideA} и {sideB} равна {result}.");
             Console.ReadLine();
         }
 
