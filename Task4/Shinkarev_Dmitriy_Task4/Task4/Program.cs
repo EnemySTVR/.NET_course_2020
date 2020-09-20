@@ -12,7 +12,7 @@ namespace Task4
         static void Main(string[] args)
         {
             // Разница становится ощутимой при N > 1000.
-            int N = 10000;
+            int N = 1000;
             string row1 = "";
             StringBuilder row2 = new StringBuilder();
 
@@ -44,12 +44,10 @@ namespace Task4
         private static void ShowExecutionTime(object senderDelegate, object senderRow, int numberOfRepetitions)
         {
             Stopwatch stopWatch = new Stopwatch();
-            var delegatedMethodName = senderDelegate.GetType().Name;
 
-            switch (delegatedMethodName)
+            switch (senderDelegate)
             {
-                case "StringSummation":
-                    var stringSummation = senderDelegate as StringSummation;
+                case StringSummation stringSummation:
                     var row1 = senderRow as string;
                     stopWatch.Start();
 
@@ -57,8 +55,7 @@ namespace Task4
 
                     stopWatch.Stop();
                     break;
-                case "StringBuilderSummation":
-                    var stringBuilderSummation = senderDelegate as StringBuilderSummation;
+                case StringBuilderSummation stringBuilderSummation:
                     var row2 = senderRow as StringBuilder;
                     stopWatch.Start();
 
@@ -67,8 +64,7 @@ namespace Task4
                     stopWatch.Stop();
                     break;
                 default:
-                    Console.WriteLine
-                        ("Это узкоспециализированный метод ориентированный на то, что ты точно знаешь, что в него передаёшь.");
+                    Console.WriteLine("Это узкоспециализированный метод ориентированный на то, что ты точно знаешь, что в него передаёшь.");
                     break;
             }
 
@@ -78,6 +74,7 @@ namespace Task4
                     "{0:00}:{1:00}:{2:00}.{3:00}",
                     ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds
                 );
+            string delegatedMethodName = senderDelegate.GetType().Name;
             Console.WriteLine($"Время исполнения {numberOfRepetitions} сложений {delegatedMethodName}: {elapsedTime}");
 
         }
