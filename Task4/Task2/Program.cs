@@ -7,25 +7,25 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            string str1;
-            string str2;
-            string res = "";
-            Console.WriteLine("Введите первую строку:");
-            str1 = Console.ReadLine();
-            Console.WriteLine("Введите вторую строку:");
-            str2 = Console.ReadLine();
-
-            foreach(var i in str1.ToCharArray())
+            Console.WriteLine
+                ("Введите первую строку:");
+            string row1 = Console.ReadLine();
+            Console.WriteLine
+                ("Введите вторую строку:");
+            string row2 = Console.ReadLine();
+            
+            string result = "";
+            foreach (var i in row1.ToCharArray())
             {
-                if(i != ' ' && str2.ToCharArray().Contains(i))
+                if(i != ' ' && row2.ToCharArray().Contains(i))
                 {
-                    res += i;
+                    result += i;
                 }  
 
-                res += i;
+                result += i;
             }
-
-            Console.WriteLine($"Результирующая строка: {res}");
+            Console.WriteLine
+                ($"Результирующая строка: {result}");
             Console.ReadLine();
         }
     }

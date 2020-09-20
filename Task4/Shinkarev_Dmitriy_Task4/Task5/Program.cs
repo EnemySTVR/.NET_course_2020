@@ -7,13 +7,10 @@ namespace Task5
     {
         static void Main(string[] args)
         {
-            string input;
-            
             Console.WriteLine("Введите HTML текст:");
-            input = Console.ReadLine();
+            string input = Console.ReadLine();
 
             var result = Regex.Replace(input, @"<[^>]*>", "_");
-
             Console.WriteLine($"Результат замены: {result}");
             Console.ReadLine();
         }

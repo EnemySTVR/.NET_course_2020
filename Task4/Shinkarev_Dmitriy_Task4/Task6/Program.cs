@@ -7,9 +7,8 @@ namespace Task6
     {
         static void Main(string[] args)
         {
-            string input;
             Console.WriteLine("Введите число:");
-            input = Console.ReadLine();
+            string input = Console.ReadLine();
             if (Regex.IsMatch(input, @"^([-+]?\d+([.,]\d+)?)$"))
             {
                 Console.WriteLine("Это число в обычной нотации.");
@@ -25,9 +24,7 @@ namespace Task6
                     Console.WriteLine("Это не число.");
                 }
             }
-
             Console.ReadLine();
-
         }
     }
 }
