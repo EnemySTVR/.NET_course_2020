@@ -13,7 +13,7 @@ namespace Task1
             Console.Write("Введи длинну стороны B: ");
             int sideB = InputCorrectValue();
 
-            int result = sideA * sideB;
+            int result = GetArea(sideA, sideB);
             Console.WriteLine($"Площадь прямоугольника при сторонах {sideA} и {sideB} равна {result}.");
             Console.ReadLine();
         }
@@ -32,6 +32,11 @@ namespace Task1
             }
             while (result <= 0);
             return result;
+        }
+
+        private static int GetArea(int sideA, int sideB)
+        {
+            return sideA * sideB;
         }
     }
 }

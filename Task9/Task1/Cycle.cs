@@ -21,49 +21,11 @@ namespace Task1
             _list.Add(human);
         }
 
-        public void ShowElements()
-        {
-            foreach (var h in _list)
-            {
-                Console.WriteLine(h);
-            }
-        }
+        
 
-        public void RemoveEachSecondItemLinked()
-        {
-             while (_list.Count > 1)
-             {
-                _list.Add(_list.First());
-                _list.Remove(_list.First());
-                _list.Remove(_list.First());
-             }
+        
 
-        }
-
-        public void RemoveEachSecondItemLinst()
-        {
-            var temp = new List<Human>();
-            if (_list.Count > 1)
-            {
-                foreach (var h in _linked)
-                {
-                    if (_list.IndexOf(h) % 2 == 0)
-                    {
-                        temp.Add(h);
-                    }
-
-                }
-                _list = temp;
-
-                if (_list.Count % 2 != 0)
-                {
-                    _list.Add(_list.First());
-                    _list.Remove(_list.First());
-                }
-
-                RemoveEachSecondItemLinst();
-            }
-        }
+        
 
         
 

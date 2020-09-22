@@ -8,12 +8,12 @@ namespace Task4
         {
             Console.WriteLine("Введи число N (Только не слишком большое):");
             int n = Int32.Parse(Console.ReadLine());
-            int rowLenght = (n * 2) + 1;
+            int rowLenght = (n * 2) - 1;
             int leftPointer = rowLenght / 2;
             int rightPointer = rowLenght / 2;
             char[] row = new char[rowLenght];
             int counter = 1;
-            for (int i = 0; i <= n; i++)
+            for (int i = 0; i < n; i++)
             {
                 Array.Clear(row, 0, row.Length);
 
