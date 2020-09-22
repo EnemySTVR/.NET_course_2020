@@ -10,9 +10,9 @@ namespace Task1
             Console.WriteLine("Создан DynamicArray. Сейчас он пуст.");
             var array = new DynamicArray();
             Console.WriteLine("Созданы 3 тестовых обьекта. Они пронумерованы.");
-            var testObject = new Test_object();
-            var testObject1 = new Test_object1();
-            var testObject2 = new Test_object2();
+            var testObject = new TestObject() { Name = "1" };
+            var testObject1 = new TestObject() { Name = "2" };
+            var testObject2 = new TestObject() { Name = "3" };
             Console.WriteLine("С помощью метода Add добавляем их поочередно и выводим на экран:");
             array.Add(testObject);
             array.Add(testObject1);

@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Task1
 {
-    class Test_object2
+    class TestObject
     {
+        public string Name { get; set; }
         public override string ToString()
         {
-            return "Hello! This is test object 2!";
+            return $"Hello! This is test object {Name}!";
         }
     }
 }
