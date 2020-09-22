@@ -18,14 +18,14 @@ namespace Task3
 
             var wordCounter = new Dictionary<string, int>();
 
-            foreach (var m in matches)
+            foreach (var match in matches)
             {
                 // ContainsKey чувствителен к регистру.
                 // Я напишу свой ContainsKey с игнором регистра ̶и̶ ̶к̶у̶р̶т̶и̶з̶а̶н̶к̶а̶м̶и̶.
                 string overlapKey;
-                if (!ContainsKeyWithIgnoreRegister(wordCounter, m.ToString(), out overlapKey))
+                if (!ContainsKeyWithIgnoreRegister(wordCounter, match.ToString(), out overlapKey))
                 {
-                    wordCounter.Add(m.ToString(), 1);
+                    wordCounter.Add(match.ToString(), 1);
                 }
                 else
                 {
@@ -55,9 +55,9 @@ namespace Task3
 
         static void WriteDictionary(Dictionary<string, int> pairs)
         {
-            foreach (var p in pairs)
+            foreach (var pair in pairs)
             {
-                Console.WriteLine($"Слово {p.Key} встречается {p.Value} раз(а).");
+                Console.WriteLine($"Слово {pair.Key} встречается {pair.Value} раз(а).");
             }
         }
     }
