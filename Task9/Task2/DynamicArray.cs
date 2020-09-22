@@ -2,15 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
 namespace Task1
 {
-    class DynamicArray : IEnumerable
+    class DynamicArray<T> : IEnumerable<T>
     {
         private int _length = 0;
-        private object[] _array;
+        private T[] _array;
 
         public object this[int index]
         {
@@ -39,28 +40,38 @@ namespace Task1
         }
         public DynamicArray()
         {
-            _array = new object[8];
+            _array = new T[8];
         }
         public DynamicArray(int length)
         {
-            _array = new object[length];
+            _array = new T[length];
         }
-        public DynamicArray(object[] array)
+
+        //public DynamicArray(object[] array)
+        //{
+        //    foreach (var obj in array)
+        //    {
+        //        Type objType = obj.GetType();
+        //        var constructor = objType.GetConstructor(Type.EmptyTypes);
+        //        if (constructor == null)
+        //            throw new ArgumentException();
+        //    }
+        //    _array = array;
+        //}
+
+        public DynamicArray(IEnumerable<T> array)
         {
+            _array = new T[array.Count()];
             foreach (var obj in array)
             {
-                Type objType = obj.GetType();
-                var constructor = objType.GetConstructor(Type.EmptyTypes);
-                if (constructor == null)
-                    throw new ArgumentException();
+                Add(obj);
             }
-            _array = array;
         }
         /// <summary>
         /// Принимает в качетсве аргумента объект имеющий конструктор по умолчанию и добавляет его в динамический массив.
         /// </summary>
         /// <param name="obj"></param>
-        public void Add(object obj)
+        public void Add(T obj)
         {
             Type objType = obj.GetType();
             var constructor = objType.GetConstructor(Type.EmptyTypes);
@@ -68,7 +79,7 @@ namespace Task1
             {
                 if (_array.Length == _length)
                 {
-                    var temp = new object[_length + 8];
+                    var temp = new T[_length + 8];
                     for (int i = 0; i < _array.Length; i++)
                     {
                         temp[i] = _array[i];
@@ -86,7 +97,7 @@ namespace Task1
         /// Принимает в качестве аргумента массив объектов имеющих конструктор по умолчанию и добавляет его в динамический массив.
         /// </summary>
         /// <param name="array"></param>
-        public void AddRange(object[] array)
+        public void AddRange(T[] array)
         {
             foreach (var obj in array)
             {
@@ -96,7 +107,7 @@ namespace Task1
                     throw new ArgumentException();
             }
 
-            var temp = new object[_array.Length + array.Length];
+            var temp = new T[_array.Length + array.Length];
             
             for (int i = 0; i < _length; i++)
             {
@@ -117,19 +128,19 @@ namespace Task1
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool Remove(object obj)
+        public bool Remove(T obj)
         {
             bool result = false;
-            for (int i = 0; i < _array.Length; i++)
+            for (int i = 0; i < _length; i++)
             {
-                while (_array[i] == obj)
+                while (_array[i].Equals(obj))
                 {
-                    for (int j = i; j < _array.Length - 1; j++)
+                    for (int j = i; j < _length - 1; j++)
                     {
                         _array[j] = _array[j + 1];
                         if (j == _array.Length - 2)
                         {
-                            _array[j + 1] = null;
+                            _array[j + 1] = default(T);
                         }
                     }
                     _length--;
@@ -144,7 +155,7 @@ namespace Task1
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="index"></param>
-        public void Insert(object obj, int index)
+        public void Insert(T obj, int index)
         {
             Type objType = obj.GetType();
             var constructor = objType.GetConstructor(Type.EmptyTypes);
@@ -157,7 +168,7 @@ namespace Task1
 
                 if (_array.Length == _length)
                 {
-                    var temp = new object[_length + 8];
+                    var temp = new T[_length + 8];
                     var tempIndex = 0;
                     for (int i = 0; i < _array.Length; i++, tempIndex++)
                     {
@@ -188,6 +199,14 @@ namespace Task1
         }
 
         public IEnumerator GetEnumerator()
+        {
+            for (int index = 0; index < _length; index++)
+            {
+                yield return _array[index];
+            }
+        }
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             for (int index = 0; index < _length; index++)
             {

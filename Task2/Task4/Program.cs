@@ -23,7 +23,10 @@ namespace Task4
                     row[rightPointer] = '*';
                     leftPointer--;
                     rightPointer++;
-                    foreach (var c in row) Console.Write(c);
+                    foreach (var c in row)
+                    {
+                        Console.Write(c);
+                    }
                     Console.WriteLine();
                 }
                 leftPointer = rowLenght / 2;

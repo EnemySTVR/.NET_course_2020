@@ -20,7 +20,7 @@ namespace Task1
 
         private static int InputCorrectValue()
         {
-            int result = 0;
+            int result;
             string input;
             do
             {
