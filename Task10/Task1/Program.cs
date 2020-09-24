@@ -5,81 +5,74 @@ namespace Task1
 {
     class Program
     {
-        delegate void SortStringArray(string[] array, int overlapLength, int currentIndex);
+        delegate void AlphavitSortInLengthSortDelegate(string[] array, int overlapLength, int currentIndex);
         static void Main(string[] args)
         {
             string[] array = new string[] { "sad", "asd", "das", "wasdwww", "adweqwe", "aw", "aa" };
             Console.WriteLine("До сортировки:");
-            foreach (var str in array)
-            {
-                Console.WriteLine(str);
-            }
+            WriteArray(array);
 
-            SortStringArray sortDelegate = null;
-            sortDelegate += AlphavitSortInLengthSorr;
+            AlphavitSortInLengthSortDelegate myDelegate = null;
+            myDelegate += AlphavitSortInLengthSort;
 
-            LenghtAndAlphavitSort(ref array, sortDelegate);
+            LenghtAndAlphavitSort(array, myDelegate);
 
             // Профита в этом действии я не увидел, но, говорят, хороший тон.
-            sortDelegate -= AlphavitSortInLengthSorr;
+            myDelegate -= AlphavitSortInLengthSort;
 
             Console.WriteLine("После сортировки:");
-            foreach (var str in array)
-            {
-                Console.WriteLine(str);
-            }
+            WriteArray(array);
 
             Console.ReadKey();
         }
-
-
-        private static void LenghtAndAlphavitSort(ref string[] array, SortStringArray sortDelegate)
+        private static void WriteArray(string[] array)
         {
-            array = array.OrderBy(x => x.Length).ToArray();
-
-            int overlapLength = 0;
-            int previousLength = 0;
-            for (int i = 0; i < array.Length; i++)
+            foreach (var str in array)
             {
-                if (previousLength == array[i].Length)
-                {
-                    overlapLength++;
-                    if (i == array.Length - 1)
-                    {
-                        overlapLength++;
-                        sortDelegate(array, overlapLength, i + 1);
-                    }
-                }
-                else if (overlapLength > 0)
-                {
-                    overlapLength++;
-                    sortDelegate(array, overlapLength, i);
-                    overlapLength = 0;
-                }
-                previousLength = array[i].Length;
+                Console.WriteLine(str);
             }
         }
 
+        private static void LenghtAndAlphavitSort(string[] array, AlphavitSortInLengthSortDelegate myDelegate)
+        {
+            array = array.OrderBy(x => x.Length).ToArray();
+                     
+            // цикл ищет элементы в массиве с одинаковой длинной и сортирует их методом переданным делегатом
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    int previousLength = 0;
+            //    int overlapLength = 0;
+            //    bool lastElement = i == array.Length - 1;
 
-        private static void AlphavitSortInLengthSorr(string[] array, int overlapLength, int currentIndex)
+            //    if (previousLength == array[i].Length)
+            //    {
+            //        overlapLength++;
+            //        if (lastElement)
+            //        {
+            //            overlapLength++;
+            //            myDelegate(array, overlapLength, i + 1);
+            //        }
+            //    }
+            //    else if (overlapLength > 0)
+            //    {
+            //        overlapLength++;
+            //        myDelegate(array, overlapLength, i);
+            //        overlapLength = 0;
+            //    }
+            //    previousLength = array[i].Length;
+            //}
+        }
+
+
+        private static void AlphavitSortInLengthSort(string[] array, int overlapLength, int currentIndex)
         {
             int startOverlapIndex = currentIndex - overlapLength;
             var tempArray = new string[overlapLength];
 
-            for (int j = 0; j < overlapLength; j++, startOverlapIndex++)
-            {
-                tempArray[j] = array[startOverlapIndex];
-            }
-
-            // Возврат индекса в исходное положение.
-            startOverlapIndex -= overlapLength;
-
+            Array.Copy(array, startOverlapIndex, tempArray, 0, overlapLength);
             Array.Sort(tempArray);
-
-            for (int j = 0; j < overlapLength; j++, startOverlapIndex++)
-            {
-                array[startOverlapIndex] = tempArray[j];
-            }
+            tempArray.CopyTo(array, startOverlapIndex);
+            
         }
     }
 }
