@@ -63,7 +63,6 @@ namespace Task1
             }
         }
 
-
         private static void AlphavitSortInLengthSort(string[] array, int overlapLength, int currentIndex)
         {
             int startOverlapIndex = currentIndex - overlapLength;
