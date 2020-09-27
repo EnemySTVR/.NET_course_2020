@@ -18,7 +18,6 @@ namespace Task1
 
             LenghtAndAlphavitSort(array, myDelegate);
 
-            // Профита в этом действии я не увидел, но, говорят, хороший тон.
             myDelegate -= AlphavitSortInLengthSort;
 
             Console.WriteLine("После сортировки:");
