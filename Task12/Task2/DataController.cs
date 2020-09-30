@@ -45,40 +45,11 @@ namespace Task2
             timer.Start();
         }
 
-        private static void Change(object sender, FileSystemEventArgs e)
-        {
-            isChanged = true;
-        }
-
         public static void StopObserv()
         {
             dataWatcher.EnableRaisingEvents = false;
             timer.Stop();
             timer.Elapsed -= ArchiveTheChange;
-        }
-
-        private static void ArchiveTheChange(object sender, ElapsedEventArgs e)
-    {
-            if (isChanged == true)
-            {
-                var dateTimeOfChange = DateTime.Now.ToString(folderNamingPattern);
-
-                string newArchiveFolderName = @$"{targetFolderPath}\Archive\{dateTimeOfChange}";
-                Directory.CreateDirectory(newArchiveFolderName);
-
-                var files = Directory.GetFiles(targetFolderPath);
-
-                string createdFile;
-                foreach (var file in files)
-                {
-                    string name = Path.GetFileName(file);
-                    createdFile = Path.Combine(newArchiveFolderName, name);
-                    File.Copy(file, createdFile);
-                }
-
-                Console.WriteLine($"Back up for {dateTimeOfChange} was saved.");
-            }
-            isChanged = false;
         }
 
         public static void BackUpTo(string time)
@@ -117,6 +88,36 @@ namespace Task2
                 createdFile = Path.Combine(targetFolderPath, name);
                 File.Copy(file, createdFile);
             }
+        }
+
+
+        private static void ArchiveTheChange(object sender, ElapsedEventArgs e)
+        {
+            if (isChanged == true)
+            {
+                var dateTimeOfChange = DateTime.Now.ToString(folderNamingPattern);
+
+                string newArchiveFolderName = @$"{targetFolderPath}\Archive\{dateTimeOfChange}";
+                Directory.CreateDirectory(newArchiveFolderName);
+
+                var files = Directory.GetFiles(targetFolderPath);
+
+                string createdFile;
+                foreach (var file in files)
+                {
+                    string name = Path.GetFileName(file);
+                    createdFile = Path.Combine(newArchiveFolderName, name);
+                    File.Copy(file, createdFile);
+                }
+
+                Console.WriteLine($"Back up for {dateTimeOfChange} was saved.");
+            }
+            isChanged = false;
+        }
+
+        private static void Change(object sender, FileSystemEventArgs e)
+        {
+            isChanged = true;
         }
 
         private static void CleanObservableFolder()
