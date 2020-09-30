@@ -45,7 +45,6 @@ namespace Task2
 
                 DataController.StopObserv();
             }
-
         }
 
         private static void ReadArgs(string[] args)
@@ -99,8 +98,5 @@ namespace Task2
                     break;
             }
         }
-
-        
-
     }
 }
