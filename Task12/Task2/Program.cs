@@ -6,7 +6,6 @@ namespace Task2
     
     class Program
     {
-        private const string targetFolderPath = @"";
         private static bool isExit = false;
 
         static void Main(string[] args)
