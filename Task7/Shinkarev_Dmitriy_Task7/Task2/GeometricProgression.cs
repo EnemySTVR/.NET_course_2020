@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Task2
 {
-    class GeometricProgression : ISeries
-    {
+	class GeometricProgression : ISeries
+	{
 		double _start;
 		double _step;
 		double _current;

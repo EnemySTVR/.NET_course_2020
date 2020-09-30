@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Library
 {
@@ -7,7 +8,10 @@ namespace Library
         public static void OneDimensional(int[] array)
         {
             var random = new Random();
-            for (int i = 0; i < array.Length; i++) array[i] = random.Next(-100, 100);
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = random.Next(-100, 100);
+            }
         }
         public static void TwoDimensional(int[,] array)
         {
@@ -141,7 +145,6 @@ namespace Library
                     }
                 }
             }
-            result -= array[0, 0];
             return result;
         }
 

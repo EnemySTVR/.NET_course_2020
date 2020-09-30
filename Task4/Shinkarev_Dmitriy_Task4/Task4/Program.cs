@@ -11,8 +11,8 @@ namespace Task4
         delegate void StringBuilderSummation (StringBuilder row, int N);
         static void Main(string[] args)
         {
-            // Разница становится ощутимой при N > 1000.
-            int N = 1000;
+            // Разница становится ощутимой при N > 10.
+            int N = 10;
             string row1 = "";
             StringBuilder row2 = new StringBuilder();
 
@@ -68,14 +68,14 @@ namespace Task4
                     break;
             }
 
-            TimeSpan ts = stopWatch.Elapsed;
+            TimeSpan timeSpan = stopWatch.Elapsed;
             string elapsedTime = String.Format
                 (
                     "{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds
+                    timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds
                 );
             string delegatedMethodName = senderDelegate.GetType().Name;
-            Console.WriteLine($"Время исполнения {numberOfRepetitions} сложений {delegatedMethodName}: {elapsedTime}");
+            Console.WriteLine($"Время исполнения {numberOfRepetitions} сложений {delegatedMethodName}: {timeSpan.Ticks}");
 
         }
     }

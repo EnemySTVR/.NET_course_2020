@@ -12,11 +12,11 @@ namespace Task1
 
             var spliters = new char[] { ' ', ',', '.', ';', ':', '"', '!', '?' };
             var words = input.Split(spliters, StringSplitOptions.RemoveEmptyEntries);
-            int charCount = 0;
-            int wordCount = 0;
-            foreach (var w in words)
+            double charCount = 0.0;
+            double wordCount = 0.0;
+            foreach (var word in words)
             {
-                charCount += w.Length;
+                charCount += word.Length;
                 wordCount++;
             }
             var result = charCount / wordCount;
