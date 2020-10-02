@@ -18,10 +18,10 @@ namespace Task1
             array.Add(testObject1);
             array.Add(testObject2);
             ShowDynamicArray(array);
-            Console.WriteLine("С помощью метода Remove удалим тетовый метод с номером 1.");
+            Console.WriteLine("С помощью метода Remove удалим тетовый метод с номером 2.");
             array.Remove(testObject1);
             ShowDynamicArray(array);
-            Console.WriteLine("С помощью метода Insert вставим тестовый метод с номером 1 по индексу 1");
+            Console.WriteLine("С помощью метода Insert вставим тестовый метод с номером 2 по индексу 1");
             array.Insert(testObject1, 1);
             ShowDynamicArray(array);
             Console.WriteLine("А сейчас создадим и с помощью метода AddRange добавим массив из тех же трёх тестовых объектов.");

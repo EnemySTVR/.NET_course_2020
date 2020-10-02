@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Task1
 {
-    class DynamicArray<T> : IEnumerable<T>
+    class DynamicArray<T> : IEnumerable<T> where T : new()
     {
         private int _length = 0;
         private T[] _array;
@@ -25,7 +25,8 @@ namespace Task1
             }
         }
 
-        public int Length { 
+        public int Length
+        {
             get
             {
                 return _length;
@@ -47,21 +48,9 @@ namespace Task1
             _array = new T[length];
         }
 
-        //public DynamicArray(object[] array)
-        //{
-        //    foreach (var obj in array)
-        //    {
-        //        Type objType = obj.GetType();
-        //        var constructor = objType.GetConstructor(Type.EmptyTypes);
-        //        if (constructor == null)
-        //            throw new ArgumentException();
-        //    }
-        //    _array = array;
-        //}
-
         public DynamicArray(IEnumerable<T> array)
         {
-            _array = new T[array.Count()];
+            _array = new T[array.Count() * 2];
             foreach (var obj in array)
             {
                 Add(obj);
@@ -73,24 +62,7 @@ namespace Task1
         /// <param name="obj"></param>
         public void Add(T obj)
         {
-            Type objType = obj.GetType();
-            var constructor = objType.GetConstructor(Type.EmptyTypes);
-            if (constructor != null)
-            {
-                if (_array.Length == _length)
-                {
-                    var temp = new T[_length + 8];
-                    for (int i = 0; i < _array.Length; i++)
-                    {
-                        temp[i] = _array[i];
-                    }
-                    _array = temp;
-                }
-                _array[_length] = obj;
-                _length++;
-            }
-            else 
-                throw new ArgumentException();
+            Insert(obj, _length);
         }
 
         /// <summary>
@@ -108,7 +80,7 @@ namespace Task1
             }
 
             var temp = new T[_array.Length + array.Length];
-            
+
             for (int i = 0; i < _length; i++)
             {
                 temp[i] = _array[i];
@@ -157,45 +129,38 @@ namespace Task1
         /// <param name="index"></param>
         public void Insert(T obj, int index)
         {
-            Type objType = obj.GetType();
-            var constructor = objType.GetConstructor(Type.EmptyTypes);
-            if (constructor != null)
+            _length++;
+            if ((index < 0 || index >= _length) && _length != 0)
             {
-                if (index < 0 || index >= _length)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-
-                if (_array.Length == _length)
-                {
-                    var temp = new T[_length + 8];
-                    var tempIndex = 0;
-                    for (int i = 0; i < _array.Length; i++, tempIndex++)
-                    {
-                        if (i == index)
-                        {
-                            temp[i] = obj;
-                            tempIndex++;
-                        }
-                        temp[tempIndex] = _array[i];
-                    }
-                    _array = temp;
-                }
-
-                if (index < _length)
-                {
-                    for (int i = _length; i > index; i--)
-                    {
-                        _array[i] = _array[i - 1];
-                    }
-                }
-                
-
-                _array[index] = obj;
-                _length++;
+                throw new ArgumentOutOfRangeException();
             }
-            else 
-                throw new ArgumentException();
+
+            if (_array.Length == _length)
+            {
+                var temp = new T[_length + 8];
+                var tempIndex = 0;
+                for (int i = 0; i < _array.Length; i++, tempIndex++)
+                {
+                    if (i == index)
+                    {
+                        temp[i] = obj;
+                        tempIndex++;
+                    }
+                    temp[tempIndex] = _array[i];
+                }
+                _array = temp;
+            }
+
+            if (index < _length)
+            {
+                for (int i = _length; i > index; i--)
+                {
+                    _array[i] = _array[i - 1];
+                }
+            }
+
+            _array[index] = obj;
+           
         }
 
         public IEnumerator GetEnumerator()

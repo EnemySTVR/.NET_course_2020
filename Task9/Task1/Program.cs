@@ -26,7 +26,7 @@ namespace Task1
             Console.WriteLine("Встаньте дети в круг:");
             ShowElements(cycleList);
             ShowElements(cycleLinkedList);
-                        
+
             Console.WriteLine("Считаем по кругу и удаляем каждого второго, пока не останется всего один:");
             cycleList = (List<Human>)RemoveEachSecondItem(cycleList);
             cycleLinkedList = (LinkedList<Human>)RemoveEachSecondItem(cycleLinkedList);
@@ -38,44 +38,23 @@ namespace Task1
 
         static IEnumerable<Human> RemoveEachSecondItem(IEnumerable<Human> senderList)
         {
-            switch (senderList)
+            bool isEven = false;
+
+            while (senderList.Count() > 1)
             {
-                case List<Human> list:
+                var temp = new List<Human>();
+                foreach (var h in senderList)
+                {
+                    if (isEven)
                     {
-                        int counter = 0;
-
-                        while (list.Count > 1)
-                        {
-                            var temp = new List<Human>();
-                            foreach (var h in list)
-                            {
-                                if (counter % 2 == 0)
-                                {
-                                    temp.Add(h);
-                                }
-                                counter++;
-                            }
-
-                            list = temp;
-                        }
-
-                        return list;
+                        temp.Add(h);
                     }
-                case LinkedList<Human> linkedList:
-                    {
-                        while (linkedList.Count > 1)
-                        {
-                            linkedList.AddLast(linkedList.First());
-                            linkedList.Remove(linkedList.First());
-                            linkedList.Remove(linkedList.First());
-                        }
-                        return linkedList;
-                    }
-                default:
-                    {
-                        return senderList;
-                    }         
+                    isEven = !isEven;
+                }
+
+                senderList = temp;
             }
+            return senderList;
         }
 
         static void ShowElements(IEnumerable<Human> list)

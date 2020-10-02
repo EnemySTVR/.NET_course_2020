@@ -7,7 +7,6 @@ namespace Task1
         private string _firstName;
         private string _lastName;
         private string _surName;
-        private int _age;
         private DateTime _birth;
 
         public User(string firstName, string lastName, string surName, DateTime birth)
@@ -15,11 +14,6 @@ namespace Task1
             _firstName = firstName;
             _lastName = lastName;
             _surName = surName;
-            _age = DateTime.Now.Year - birth.Year;
-            if(DateTime.Now.DayOfYear < birth.DayOfYear)
-            {
-                _age--;
-            }
             _birth = birth;
         }
 
@@ -48,7 +42,11 @@ namespace Task1
         {
             get
             {
-                return _age;
+                if (DateTime.Now.DayOfYear < _birth.DayOfYear)
+                {
+                    return DateTime.Now.Year - _birth.Year - 1;
+                }
+                return DateTime.Now.Year - _birth.Year;
             }
         }
         public DateTime Date_of_Birth
