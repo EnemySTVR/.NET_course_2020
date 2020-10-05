@@ -1,4 +1,6 @@
-﻿namespace Task1
+﻿using System.Drawing;
+
+namespace Task1
 {
     partial class mainWindow
     {
@@ -386,6 +388,8 @@
             this.userDataView.Text = "dataGridView1";
             this.userDataView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.OrderByCollumnHandler);
             this.userDataView.Click += new System.EventHandler(this.ChangeSelectedUser);
+            this.userDataView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.userDataView.BackgroundColor = Color.White;
             // 
             // prizesTabPage
             // 
@@ -411,6 +415,9 @@
             this.prizeDataView.TabIndex = 0;
             this.prizeDataView.Text = "dataGridView2";
             this.prizeDataView.Click += new System.EventHandler(this.ChangeSelectedPrize);
+            this.prizeDataView.ColumnHeaderMouseClick += OrderByCollumnHandler;
+            this.prizeDataView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.prizeDataView.BackgroundColor = Color.White;
             // 
             // mainViewPanel
             // 

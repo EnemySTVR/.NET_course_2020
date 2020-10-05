@@ -8,12 +8,16 @@ namespace Task1
 {
     static public class DataController
     {
-        private static BindingList<User> _users = new BindingList<User>();
-        private static BindingList<Prize> _prizes = new BindingList<Prize>();
+        private static SelfSortingBindingList<User> _users = new SelfSortingBindingList<User>();
+        private static SelfSortingBindingList<Prize> _prizes = new SelfSortingBindingList<Prize>();
 
-        public static BindingList<User> Users { get => _users; }
-        public static BindingList<Prize> Prizes { get => _prizes; }
-
+        public static SelfSortingBindingList<User> Users { get => _users; }
+        public static SelfSortingBindingList<Prize> Prizes { get => _prizes; }
+        public static List<object> SourceList = new List<object>()
+        {
+            Users,
+            Prizes
+        };
         public static Prize SearchPrizeByName(string name)
         {
             foreach (var prize in _prizes)
@@ -25,5 +29,14 @@ namespace Task1
             }
             return null;
         }
+        public static void RemovePrizeFromUsers(Prize prize)
+        {
+            for (int i = 0; i < _users.Count; i++)
+            {
+                _users[i].Prizes.Remove(prize);
+            }
+        }
+
+        
     }
 }

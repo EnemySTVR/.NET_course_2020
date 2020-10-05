@@ -1,10 +1,5 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using Task1.SecondForms;
 
@@ -71,6 +66,7 @@ namespace Task1
                 DataController.Users.Remove(_selectedUser);
             }
             userInformationPanel.Visible = false;
+            ResetSelectedItems();
         }
 
         private void AddPrizeButtonClick(object sender, EventArgs e)
@@ -116,8 +112,10 @@ namespace Task1
             if (result == DialogResult.Yes)
             {
                 DataController.Prizes.Remove(_selectedPrize);
+                DataController.RemovePrizeFromUsers(_selectedPrize);
             }
             prizeInformationPanel.Visible = false;
+            ResetSelectedItems();
         }
 
 
@@ -204,45 +202,18 @@ namespace Task1
             prizeDataView.Rows[0].Selected = true;
         }
 
-
         private void OrderByCollumnHandler(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var dataSourse = ((DataGridView)sender).DataSource;
-            string targetPropertyName = ((DataGridView)sender).Columns[e.ColumnIndex].Name;
-            Type senderCollectionType = ((DataGridView)sender).DataSource.GetType();
-            Type itemType = senderCollectionType.GetGenericArguments()[0];
-            PropertyInfo targetProperty = itemType.GetProperty(targetPropertyName);
-
-            var propertiesArray = Array.CreateInstance(targetProperty.PropertyType, ((IList)dataSourse).Count);
-            for (int i = 0; i < propertiesArray.Length; i++)
+            var collumnName = ((DataGridView)sender).Columns[e.ColumnIndex].Name;
+            var arg = new object[1] { collumnName };
+            var sourceType = ((DataGridView)sender).DataSource.GetType();
+            var methodInfo = sourceType.GetMethod("SortItemsByProperty");
+            foreach (var source in DataController.SourceList)
             {
-                var tmp = targetProperty.GetValue(((IList)dataSourse)[i]);
-                ((IList)propertiesArray)[i] = tmp;
-                
-            }
-
-            Array.Sort(propertiesArray); 
-            
-            var tempArray = Array.CreateInstance(itemType, ((IList)dataSourse).Count);
-
-            for (int i = 0; i < propertiesArray.Length; i++)
-            {
-                foreach (var item in ((IList)dataSourse))
+                if (sourceType.Equals(source.GetType()))
                 {
-                    var propertyValue = targetProperty.GetValue(item);
-                    // TODO: Написать compare, сравнивающий обьекты по id и передать его в contains
-                    if (((IList)propertiesArray)[i].Equals(propertyValue) && !((IList)tempArray).Contains(item))
-                    {
-                        ((IList)tempArray)[i] = item;
-                    }
+                    methodInfo.Invoke(source, arg);
                 }
-            }
-
-            ((IList)dataSourse).Clear();
-
-            foreach (var item in tempArray)
-            {
-                ((IList)dataSourse).Add(item);
             }
 
             ResetSelectedItems();

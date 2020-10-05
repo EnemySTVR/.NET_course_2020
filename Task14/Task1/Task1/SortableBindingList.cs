@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-using System.Text;
 
 namespace Task1
 {
@@ -24,7 +22,6 @@ namespace Task1
             {
                 propertiesArray[i] = targetProperty.GetValue(this[i]);
             }
-
             Array.Sort(propertiesArray as Array);
 
             IList tempArray = Array.CreateInstance(itemType, Count);
@@ -32,9 +29,8 @@ namespace Task1
             {
                 foreach (T element in this)
                 {
-                    var valuePropertyOfCurrentElement = targetProperty.GetValue(element);
-
-                    if (propertiesArray[i].Equals(valuePropertyOfCurrentElement) && !tempArray.Contains(element))
+                    if (propertiesArray[i].Equals(targetProperty.GetValue(element))
+                        && !tempArray.Contains(element))
                     {
                         tempArray[i] = element;
                     }
@@ -42,35 +38,9 @@ namespace Task1
             }
 
             Clear();
-
             foreach (var item in tempArray)
             {
                 Add((T)item);
-            }
-        }
-
-        private bool isContains(T item, IList list)
-        {
-            var comparer = new ItemsComparer();
-            int compareResult;
-            foreach (T element in list)
-            {
-                compareResult = comparer.Compare(item, element);
-                if (compareResult != 0)
-                {
-                    return false;
-                }
-                
-            }
-            return true;
-        }
-        private class ItemsComparer : IComparer<T>
-        {
-            public int Compare(T x, T y)
-            {
-                int xHashCode = x.GetHashCode();
-                int yHashCode = y.GetHashCode();
-                return xHashCode.CompareTo(yHashCode);
             }
         }
     }
