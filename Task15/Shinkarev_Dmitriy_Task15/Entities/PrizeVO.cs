@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Entities
 {
-    public class Prize : INotifyPropertyChanged
+    public class PrizeVO : INotifyPropertyChanged
     {
         private int _id;
         private string _name;
@@ -18,7 +16,7 @@ namespace Entities
         public string Name { get => _name; }
         public string Description { get => _description; }
 
-        public Prize(int id, string name, string description)
+        public PrizeVO(int id, string name, string description)
         {
             _id = id;
             _name = name;
@@ -49,7 +47,28 @@ namespace Entities
 
         public override bool Equals(object obj)
         {
-            return GetHashCode() == obj.GetHashCode();
+            if (GetHashCode() != obj.GetHashCode())
+            {
+                return false;
+            }
+
+            PrizeVO objectToCompare = (PrizeVO)obj;
+
+            if (objectToCompare == null)
+            {
+                return false;
+            }
+
+            if (_id == objectToCompare.Id &&
+                _name.Equals(objectToCompare.Name) &&
+                _description.Equals(objectToCompare.Description))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void OnPropertyChanged([CallerMemberName] string name = null)

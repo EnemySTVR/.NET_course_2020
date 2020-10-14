@@ -5,13 +5,13 @@ using System.Runtime.CompilerServices;
 
 namespace Entities
 {
-    public class User : INotifyPropertyChanged
+    public class UserVO : INotifyPropertyChanged
     {
         private int _id;
         private string _firstName;
         private string _lastName;
         private DateTime _birthDate;
-        private BindingList<Prize> _userPrizes;
+        private BindingList<PrizeVO> _userPrizes;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,7 +19,7 @@ namespace Entities
         public string FirstName { get => _firstName; }
         public string LastName { get => _lastName; }
         public DateTime BirthDate { get => _birthDate.Date; }
-        public BindingList<Prize> Prizes { get => _userPrizes; }
+        public BindingList<PrizeVO> Prizes { get => _userPrizes; }
         public string Age
         {
             get
@@ -35,13 +35,13 @@ namespace Entities
             }
         }
 
-        public User(int id, string firstName, string lastName, DateTime birthDate, List<Prize> prizes)
+        public UserVO(int id, string firstName, string lastName, DateTime birthDate, List<PrizeVO> prizes)
         {
             _id = id;
             _firstName = firstName;
             _lastName = lastName;
             _birthDate = birthDate;
-            _userPrizes = new BindingList<Prize>(prizes);
+            _userPrizes = new BindingList<PrizeVO>(prizes);
         }
 
         public void ChangeFirstName(string firstName)
@@ -62,11 +62,20 @@ namespace Entities
             OnPropertyChanged("BirthDate");
         }
 
-        public void AddPrize(Prize prize)
+        public void AddPrize(PrizeVO prize)
         {
             if (!_userPrizes.Contains(prize))
             {
                 _userPrizes.Add(prize);
+                OnPropertyChanged("Prizes");
+            }
+        }
+
+        public void RemovePrize(PrizeVO prize)
+        {
+            if (_userPrizes.Contains(prize))
+            {
+                _userPrizes.Remove(prize);
                 OnPropertyChanged("Prizes");
             }
         }
@@ -78,7 +87,12 @@ namespace Entities
 
         public override bool Equals(object obj)
         {
-            User objectToCompare = (User)obj;
+            if (GetHashCode() != obj.GetHashCode())
+            {
+                return false;
+            }
+
+            UserVO objectToCompare = (UserVO)obj;
 
             if (objectToCompare == null)
             {

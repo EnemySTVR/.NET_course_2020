@@ -350,6 +350,9 @@
             // 
             // prizeDataView
             // 
+            this.prizeDataView.AllowUserToAddRows = false;
+            this.prizeDataView.AllowUserToDeleteRows = false;
+            this.prizeDataView.AllowUserToResizeRows = false;
             this.prizeDataView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.prizeDataView.BackgroundColor = System.Drawing.Color.White;
             this.prizeDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -357,6 +360,7 @@
             this.prizeDataView.Location = new System.Drawing.Point(3, 3);
             this.prizeDataView.MultiSelect = false;
             this.prizeDataView.Name = "prizeDataView";
+            this.prizeDataView.ReadOnly = true;
             this.prizeDataView.RowHeadersVisible = false;
             this.prizeDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.prizeDataView.Size = new System.Drawing.Size(514, 410);
@@ -378,6 +382,9 @@
             // 
             // userDataView
             // 
+            this.userDataView.AllowUserToAddRows = false;
+            this.userDataView.AllowUserToDeleteRows = false;
+            this.userDataView.AllowUserToResizeRows = false;
             this.userDataView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.userDataView.BackgroundColor = System.Drawing.Color.White;
             this.userDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -385,6 +392,7 @@
             this.userDataView.Location = new System.Drawing.Point(3, 3);
             this.userDataView.MultiSelect = false;
             this.userDataView.Name = "userDataView";
+            this.userDataView.ReadOnly = true;
             this.userDataView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.userDataView.RowHeadersVisible = false;
             this.userDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

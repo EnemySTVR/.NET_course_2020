@@ -1,13 +1,8 @@
 ﻿using BLL;
 using Entities;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace PL
@@ -15,13 +10,11 @@ namespace PL
     public partial class UserForm : Form
     {
         UserBL userBL;
-        PrizeBL prizeBL;
 
-        public UserForm(UserBL userBL, PrizeBL prizeBL, bool isNewUser)
+        public UserForm(UserBL userBL, ICollection<PrizeVO> prizes, bool isNewUser)
         {
             InitializeComponent();
             this.userBL = userBL;
-            this.prizeBL = prizeBL;
             newUserBirthDatePicker.MinDate = DateTime.Now.AddYears(-150);
             newUserBirthDatePicker.MaxDate = DateTime.Now;
 
@@ -31,7 +24,7 @@ namespace PL
                 newUserAcceptButton.Text = "Add";
                 newUserAcceptButton.Click += AddUserButtonClick;
 
-                newUserPrizesCheckedBox.Items.AddRange(prizeBL.GetDataSource().ToArray());
+                newUserPrizesCheckedBox.Items.AddRange(prizes.ToArray());
             }
             else
             {
@@ -42,7 +35,7 @@ namespace PL
                 newUserFirstNameTextBox.Text = userBL.SelectedUser.FirstName;
                 newUserLastNameTextBox.Text = userBL.SelectedUser.LastName;
                 newUserBirthDatePicker.Value = userBL.SelectedUser.BirthDate;
-                newUserPrizesCheckedBox.Items.AddRange(prizeBL.GetDataSource().ToArray());
+                newUserPrizesCheckedBox.Items.AddRange(prizes.ToArray());
                 for (int i = 0; i < newUserPrizesCheckedBox.Items.Count; i++)
                 {
                     if (userBL.SelectedUser.Prizes.Contains(newUserPrizesCheckedBox.Items[i]))
@@ -58,10 +51,10 @@ namespace PL
             string firstName = newUserFirstNameTextBox.Text;
             string lastName = newUserLastNameTextBox.Text;
             DateTime birthDate = newUserBirthDatePicker.Value;
-            var prizes = new List<Prize>();
+            var prizes = new List<PrizeVO>();
             foreach (var prize in newUserPrizesCheckedBox.CheckedItems)
             {
-                prizes.Add(prize as Prize);
+                prizes.Add(prize as PrizeVO);
             }
             userBL.Add(firstName, lastName, birthDate, prizes);
         }
@@ -70,10 +63,10 @@ namespace PL
             string firstName = newUserFirstNameTextBox.Text;
             string lastName = newUserLastNameTextBox.Text;
             DateTime birthDate = newUserBirthDatePicker.Value;
-            var prizes = new List<Prize>();
+            var prizes = new List<PrizeVO>();
             foreach (var prize in newUserPrizesCheckedBox.CheckedItems)
             {
-                prizes.Add(prize as Prize);
+                prizes.Add(prize as PrizeVO);
             }
             userBL.ChangeSelectedUser(firstName, lastName, birthDate, prizes);
         }

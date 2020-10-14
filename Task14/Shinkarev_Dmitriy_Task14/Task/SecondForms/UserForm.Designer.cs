@@ -170,6 +170,7 @@
             this.newUserCancelButton.TabIndex = 1;
             this.newUserCancelButton.Text = "Cancel";
             this.newUserCancelButton.UseVisualStyleBackColor = true;
+            this.newUserCancelButton.Click += new System.EventHandler(this.newUserCancelButton_Click);
             // 
             // UserForm
             // 

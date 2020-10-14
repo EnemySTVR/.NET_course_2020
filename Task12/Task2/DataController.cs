@@ -36,10 +36,10 @@ namespace Task2
                                      | NotifyFilters.LastAccess
                                      | NotifyFilters.DirectoryName;
 
-            dataWatcher.Renamed += Change;
-            dataWatcher.Created += Change;
-            dataWatcher.Deleted += Change;
-            dataWatcher.Changed += Change;
+            dataWatcher.Renamed += ChangeHandler;
+            dataWatcher.Created += ChangeHandler;
+            dataWatcher.Deleted += ChangeHandler;
+            dataWatcher.Changed += ChangeHandler;
             dataWatcher.EnableRaisingEvents = true;
             timer.Elapsed += ArchiveTheChange;
             timer.Start();
@@ -54,12 +54,12 @@ namespace Task2
 
         public static void BackUpTo(string time)
         {
-            var requestedTime = ConvertToDateTime(time);
+            var requestedTime = FolderNameToDateTime(time);
             
             // Получаем список доступных бэкапов.
             var namesOfBackUps = Directory.GetDirectories(@$"{targetFolderPath}\Archive");
             namesOfBackUps = namesOfBackUps.Select(x => Path.GetFileName(x)).ToArray();
-            var timesOfBackUps = ConvertToDateTime(namesOfBackUps);
+            var timesOfBackUps = FolderNameToDateTime(namesOfBackUps);
 
             // Ищем в списке целевой.
             DateTime targetBackUpTime = DateTime.MinValue;
@@ -115,7 +115,7 @@ namespace Task2
             isChanged = false;
         }
 
-        private static void Change(object sender, FileSystemEventArgs e)
+        private static void ChangeHandler(object sender, FileSystemEventArgs e)
         {
             isChanged = true;
         }
@@ -129,7 +129,7 @@ namespace Task2
             }
         }
 
-        private static DateTime ConvertToDateTime(string str)
+        private static DateTime FolderNameToDateTime(string str)
         {
             var temp = new string(str);
             temp = temp.Replace('-', ' ');
@@ -138,12 +138,12 @@ namespace Task2
             return DateTime.Parse(temp);
         }
 
-        private static DateTime[] ConvertToDateTime(string[] str)
+        private static DateTime[] FolderNameToDateTime(string[] str)
         {
             var temp = new DateTime[str.Length];
             for (int i = 0; i < str.Length; i++)
             {
-                temp[i] = ConvertToDateTime(str[i]);
+                temp[i] = FolderNameToDateTime(str[i]);
             }
             return temp;
         }

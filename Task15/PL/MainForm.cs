@@ -1,21 +1,13 @@
 ﻿using BLL;
 using Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PL
 {
     public partial class MainForm : Form
     {
-        
-
         private UserBL userBL;
         private PrizeBL prizeBL;
 
@@ -33,12 +25,15 @@ namespace PL
         
         private void AddUserButtonClick(object sender, EventArgs e)
         {
-            userForm = new UserForm(userBL, prizeBL, true);
-            userForm.ShowDialog();
-            userDataView.Rows[userDataView.Rows.Count - 1].Selected = true;
-            PullSelectedUser();
-            SetUserInfoLabelText(userBL.SelectedUser);
-            userInformationPanel.Visible = true;
+            userForm = new UserForm(userBL, prizeBL.Prizes, true);
+            var result = userForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                userInformationPanel.Visible = true;
+                ResetUserDataSource();
+                SelectRowByItemId(userDataView, userBL.SelectedUser.Id);
+                SetUserInfoLabelText(userBL.SelectedUser);
+            }
         }
 
         private void ChangeUserButtonClick(object sender, EventArgs e)
@@ -49,10 +44,13 @@ namespace PL
             }
             else
             {
-                userForm = new UserForm(userBL, prizeBL, false);
-                userForm.ShowDialog();
-                PullSelectedUser();
-                SetUserInfoLabelText(userBL.SelectedUser);
+                userForm = new UserForm(userBL, prizeBL.Prizes, false);
+                var result = userForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    ResetUserDataSource();
+                    SetUserInfoLabelText(userBL.SelectedUser);
+                }
             }
         }
 
@@ -69,8 +67,12 @@ namespace PL
                 {
                     userBL.RemoveSelectedUser();
                 }
-                userInformationPanel.Visible = false;
-                userBL.SelectedUser = null;
+                ResetUserDataSource();
+                if (userBL.SelectedUser != null)
+                {
+                    SelectRowByItemId(userDataView, userBL.SelectedUser.Id);
+                    SetUserInfoLabelText(userBL.SelectedUser);
+                }
             }
         }
 
@@ -82,21 +84,26 @@ namespace PL
             }
             else
             {
-                revardForm = new RevardForm(userBL, prizeBL.GetDataSource());
-                revardForm.ShowDialog();
-                PullSelectedUser();
-                SetUserInfoLabelText(userBL.SelectedUser);
+                revardForm = new RevardForm(userBL, prizeBL.Prizes);
+                var result = revardForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    SetUserInfoLabelText(userBL.SelectedUser);
+                }
             }
         }
 
         private void AddPrizeButtonClick(object sender, EventArgs e)
         {
             prizeForm = new PrizeForm(prizeBL, true);
-            prizeForm.ShowDialog();
-            prizeDataView.Rows[prizeDataView.Rows.Count - 1].Selected = true;
-            PullSelectedPrize();
-            SetPriseInfoLabelText(prizeBL.SelectedPrize);
-            prizeInformationPanel.Visible = true;
+            var result = prizeForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                prizeInformationPanel.Visible = true;
+                ResetPrizeDataSource();
+                SelectRowByItemId(prizeDataView, prizeBL.SelectedPrize.Id);
+                SetPriseInfoLabelText(prizeBL.SelectedPrize);
+            }
         }
 
         private void ChangePrizeButtonClick(object sender, EventArgs e)
@@ -108,9 +115,12 @@ namespace PL
             else
             {
                 prizeForm = new PrizeForm(prizeBL, false);
-                prizeForm.ShowDialog();
-                PullSelectedPrize();
-                SetPriseInfoLabelText(prizeBL.SelectedPrize);
+                var result = prizeForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    ResetPrizeDataSource();
+                    SetPriseInfoLabelText(prizeBL.SelectedPrize);
+                }
             }
         }
 
@@ -127,12 +137,23 @@ namespace PL
                 {
                     prizeBL.RemoveSelectedPrize();
                 }
-                prizeInformationPanel.Visible = false;
-                ResetSelectedItems();
-                SetPriseInfoLabelText(prizeBL.SelectedPrize);
+                ResetPrizeDataSource();
+                if (prizeBL.SelectedPrize != null)
+                {
+                    SelectRowByItemId(prizeDataView, prizeBL.SelectedPrize.Id);
+                    SetPriseInfoLabelText(prizeBL.SelectedPrize);
+                }
             }
         }
 
+
+        private void SelectRowByItemId(DataGridView dataGridView, int id)
+        {
+            var allRows = ((DataView)dataGridView.DataSource).Table.Rows;
+            var rowWithSelectItem = ((DataView)dataGridView.DataSource).Table.Select($"Id = {id}")[0];
+            int rowIndex = allRows.IndexOf(rowWithSelectItem);
+            dataGridView.Rows[rowIndex].Selected = true;
+        }
 
         private void ChangeSelectedUser(object sender, EventArgs e)
         {
@@ -158,7 +179,7 @@ namespace PL
                 case "Users":
                     prizeInformationPanel.Visible = false;
                     prizeButtonPanel.Visible = false;
-                    if (userBL.SelectedUser != null && userBL.GetDataSource().Contains(userBL.SelectedUser))
+                    if (userBL.SelectedUser != null)
                     {
                         userInformationPanel.Visible = true;
                     }
@@ -167,7 +188,7 @@ namespace PL
                 case "Prizes":
                     userInformationPanel.Visible = false;
                     userButtonPanel.Visible = false;
-                    if (prizeBL.SelectedPrize != null && prizeBL.GetDataSource().Contains(prizeBL.SelectedPrize))
+                    if (prizeBL.SelectedPrize != null)
                     {
                         prizeInformationPanel.Visible = true;
                     }
@@ -178,12 +199,19 @@ namespace PL
 
         private void PullSelectedUser()
         {
-            DataGridViewSelectedCellCollection cells = userDataView.SelectedCells;
-            int rowIndex = cells[0].RowIndex;
-            userBL.SelectedUser = (User)userDataView.Rows[rowIndex].DataBoundItem;
+            int rowIndex = userDataView.SelectedCells[0].RowIndex;
+            var row = userDataView.Rows[rowIndex];
+            userBL.SetSelectedItemById((int)row.Cells["Id"].Value);
         }
 
-        private void SetUserInfoLabelText(User selectedUser)
+        private void PullSelectedPrize()
+        {
+            int rowIndex = prizeDataView.SelectedCells[0].RowIndex;
+            var row = prizeDataView.Rows[rowIndex];
+            prizeBL.SetSelectedItemById((int)row.Cells["Id"].Value);
+        }
+
+        private void SetUserInfoLabelText(UserVO selectedUser)
         {
             firstNameLabel.Text = selectedUser.FirstName;
             lastNameLabel.Text = selectedUser.LastName;
@@ -192,14 +220,7 @@ namespace PL
             userPrizesBox.DataSource = selectedUser.Prizes;
         }
 
-        private void PullSelectedPrize()
-        {
-            DataGridViewSelectedCellCollection cells = prizeDataView.SelectedCells;
-            int rowIndex = cells[0].RowIndex;
-            prizeBL.SelectedPrize = (Prize)prizeDataView.Rows[rowIndex].DataBoundItem;
-        }
-
-        private void SetPriseInfoLabelText(Prize selectedPrize)
+        private void SetPriseInfoLabelText(PrizeVO selectedPrize)
         {
             prizeNameLabel.Text = selectedPrize.Name;
             prizeDescriptionLabel.Text = selectedPrize.Description;
@@ -217,34 +238,23 @@ namespace PL
             SetPriseInfoLabelText(prizeBL.SelectedPrize);
         }
 
+        private void ResetPrizeDataSource()
+        {
+            prizeDataView.DataSource = prizeBL.GetDataSource();
+        }
+
+        private void ResetUserDataSource()
+        {
+            userDataView.DataSource = userBL.GetDataSource();
+        }
+
         private void OrderByCollumnHandler(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var collumnName = ((DataGridView)sender).Columns[e.ColumnIndex].Name;
-            switch (tabControl.SelectedIndex)
-            {
-                case 0:                    
-                    userBL.SortByProperty(collumnName);
-                    break;
-                case 1:
-                    prizeBL.SortByProperty(collumnName);
-                    break;
-                default:
-                    break;
-            }
-            ResetSelectedItems();
-            //var collumnName = ((DataGridView)sender).Columns[e.ColumnIndex].Name;
-            //var arg = new object[1] { collumnName };
-            //var sourceType = ((DataGridView)sender).DataSource.GetType();
-            //var methodInfo = sourceType.GetMethod("SortItemsByProperty");
-            //foreach (var source in DataController.SourceList)
-            //{
-            //    if (sourceType.Equals(source.GetType()))
-            //    {
-            //        methodInfo.Invoke(source, arg);
-            //    }
-            //}
+            var source = ((DataGridView)sender).DataSource as DataView;
+            var columnName = source.Table.Columns[e.ColumnIndex];
+            source.Sort = columnName + " ASC";
 
-            //ResetSelectedItems();
+            ResetSelectedItems();
         }
     }
 }

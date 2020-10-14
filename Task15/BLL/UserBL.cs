@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
-using System.Text;
 using DAL;
 using Entities;
 
@@ -10,58 +10,112 @@ namespace BLL
 {
     public class UserBL
     {
-        private int idGenegator = 0;
         private UserDAO userDAO;
-        public User SelectedUser { get; set; }
-        private SelfSortingBindingList<User> _users;
+        private int idGenegator = 0;
+        public UserVO SelectedUser { get; set; }
+        private List<UserVO> _users;
 
         public UserBL()
         {
             userDAO = new UserDAO();
-            _users = new SelfSortingBindingList<User>();
+            _users = new List<UserVO>();
             foreach (var user in userDAO.GetDataSource())
             {
                 _users.Add(user);
             }
         }
-        public SelfSortingBindingList<User> GetDataSource()
+        public DataView GetDataSource()
         {
-            return _users;
+            return MakeDataView(_users);
         }
 
-        public void Add(string firstName, string lastName, DateTime birthDate, List<Prize> prizes)
+        public void Add(string firstName, string lastName, DateTime birthDate, List<PrizeVO> prizes)
         {
-            var newUser = new User(idGenegator, firstName, lastName, birthDate, prizes);
+            var newUser = new UserVO(idGenegator, firstName, lastName, birthDate, prizes);
             userDAO.Add(newUser);
             _users.Add(newUser);
+            SelectedUser = _users.Last();
             idGenegator++;
         }
 
         public void RemoveSelectedUser()
         {
+            int index = _users.IndexOf(SelectedUser);
             userDAO.Remove(SelectedUser);
             _users.Remove(SelectedUser);
+
+            if (_users.Count == 0)
+            {
+                SelectedUser = null;
+                return;
+            }
+
+            if (index == _users.Count)
+            {
+                index--;
+            }
+            SelectedUser = _users[index];
         }
 
-        public void ChangeSelectedUser(string firstName, string lastName, DateTime birthDate, List<Prize> prizes)
+        public void ChangeSelectedUser(string firstName, string lastName, DateTime birthDate, List<PrizeVO> prizes)
         {
-            var newUser = new User(SelectedUser.Id, firstName, lastName, birthDate, prizes);
+            var newUser = new UserVO(SelectedUser.Id, firstName, lastName, birthDate, prizes);
             userDAO.ChangeUser(SelectedUser, newUser);
             int index =_users.IndexOf(SelectedUser);
             _users.Remove(SelectedUser);
             _users.Insert(index, newUser);
         }
 
-        public void RevardSelectedUser(Prize prize)
+        public void RevardSelectedUser(PrizeVO prize)
         {
             SelectedUser.AddPrize(prize);
-
         }
 
-        public void SortByProperty(string propertyName)
+        public void DeleteRevardFromSelectedUser(PrizeVO prize)
         {
-            _users.SortItemsByProperty(propertyName);
-            userDAO.SortByProperty(propertyName);
+            SelectedUser.RemovePrize(prize);
+        }
+
+        public void SetSelectedItemById(int id)
+        {
+            var temp = _users.Where(x => x.Id == id);
+            if (temp.Count() > 0)
+            {
+                SelectedUser = temp.First();
+            }
+        }
+
+        private DataView MakeDataView<T>(T list)
+            where T : IList
+        {
+            var table = new DataTable();
+
+
+            if (list.Count == 0)
+            {
+                return null;
+            }
+
+            var properties = list[0].GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                table.Columns.Add(property.Name, property.PropertyType);
+            }
+
+            if (list.Count != 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var row = table.NewRow();
+                    for (int j = 0; j < properties.Length; j++)
+                    {
+                        row[properties[j].Name] = properties[j].GetValue(list[i]);
+                    }
+                    table.Rows.Add(row);
+                }
+            }
+
+            return new DataView(table);
         }
     }
 }

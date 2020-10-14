@@ -69,5 +69,10 @@ namespace Task.SecondForms
                 DataController.Users[index].AddPrize(prize);
             }
         }
+
+        private void newUserCancelButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
