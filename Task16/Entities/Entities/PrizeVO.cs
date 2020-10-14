@@ -6,13 +6,11 @@ using System.Text;
 
 namespace Entities
 {
-    public class PrizeVO : INotifyPropertyChanged
+    public class PrizeVO
     {
         private int _id;
         private string _name;
         private string _description;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public int Id { get => _id; }
         public string Name { get => _name; }
@@ -23,18 +21,6 @@ namespace Entities
             _id = id;
             _name = name;
             _description = description;
-        }
-
-        public void ChangeName(string name)
-        {
-            _name = name;
-            OnPropertyChanged("Name");
-        }
-
-        public void ChangeDescription(string description)
-        {
-            _description = description;
-            OnPropertyChanged("Description");
         }
 
         public override string ToString()
@@ -71,11 +57,6 @@ namespace Entities
             {
                 return false;
             }
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

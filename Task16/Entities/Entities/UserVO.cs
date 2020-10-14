@@ -44,24 +44,6 @@ namespace Entities
             _userPrizes = new BindingList<PrizeVO>(prizes);
         }
 
-        public void ChangeFirstName(string firstName)
-        {
-            _firstName = firstName;
-            OnPropertyChanged("FirstName");
-        }
-
-        public void ChangeLastName(string lastName)
-        {
-            _lastName = lastName;
-            OnPropertyChanged("LasttName");
-        }
-
-        public void ChangeBirthDate(DateTime birthDate)
-        {
-            _birthDate = birthDate;
-            OnPropertyChanged("BirthDate");
-        }
-
         public void AddPrize(PrizeVO prize)
         {
             if (!_userPrizes.Contains(prize))
