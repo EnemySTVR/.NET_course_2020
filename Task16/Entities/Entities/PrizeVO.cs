@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Entities
 {
@@ -23,6 +19,19 @@ namespace Entities
             _description = description;
         }
 
+        public PrizeVO(string name, string description)
+        {
+            _name = name;
+            _description = description;
+        }
+
+        public void SetId(int id)
+        {
+            if (_id == default)
+            {
+                _id = id;
+            }
+        }
         public override string ToString()
         {
             return _name;

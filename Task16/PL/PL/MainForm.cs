@@ -55,6 +55,7 @@ namespace PL
                 if (result == DialogResult.OK)
                 {
                     ResetUserDataSource();
+                    SelectRowByItemId(userDataView, userBL.SelectedUser.Id);
                     SetUserInfoLabelText(userBL.SelectedUser);
                 }
             }
@@ -125,6 +126,7 @@ namespace PL
                 if (result == DialogResult.OK)
                 {
                     ResetPrizeDataSource();
+                    SelectRowByItemId(prizeDataView, prizeBL.SelectedPrize.Id);
                     SetPriseInfoLabelText(prizeBL.SelectedPrize);
                 }
             }
@@ -179,7 +181,7 @@ namespace PL
 
         private void ChangeTabPage(object sender, TabControlCancelEventArgs e)
         {
-            ResetSelectedItems();
+            SetFirstItemsSelected();
             switch (tabControl.SelectedTab.Text)
             {
                 case "Users":
@@ -222,7 +224,7 @@ namespace PL
             firstNameLabel.Text = selectedUser.FirstName;
             lastNameLabel.Text = selectedUser.LastName;
             birthDateLabel.Text = selectedUser.BirthDate.ToString();
-            ageLabel.Text = selectedUser.Age;
+            ageLabel.Text = selectedUser.Age.ToString();
             userPrizesBox.DataSource = selectedUser.Prizes;
         }
 
@@ -232,16 +234,20 @@ namespace PL
             prizeDescriptionLabel.Text = selectedPrize.Description;
         }
 
-        private void ResetSelectedItems()
+        private void SetFirstItemsSelected()
         {
-            userDataView.Rows[0].Selected = true;
-            prizeDataView.Rows[0].Selected = true;
-
-            PullSelectedUser();
-            PullSelectedPrize();
-
-            SetUserInfoLabelText(userBL.SelectedUser);
-            SetPriseInfoLabelText(prizeBL.SelectedPrize);
+            if (userDataView.Rows.Count != 0)
+            {
+                userDataView.Rows[0].Selected = true;
+                PullSelectedUser();
+                SetUserInfoLabelText(userBL.SelectedUser);
+            }
+            if (prizeDataView.Rows.Count != 0)
+            {
+                prizeDataView.Rows[0].Selected = true;
+                PullSelectedPrize();
+                SetPriseInfoLabelText(prizeBL.SelectedPrize);
+            }
         }
 
         private void ResetPrizeDataSource()
@@ -260,7 +266,7 @@ namespace PL
             var columnName = source.Table.Columns[e.ColumnIndex];
             source.Sort = columnName + " ASC";
 
-            ResetSelectedItems();
+            SetFirstItemsSelected();
         }
     }
 }

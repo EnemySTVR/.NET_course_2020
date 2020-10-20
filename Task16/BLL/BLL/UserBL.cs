@@ -1,7 +1,6 @@
 ﻿using DAL;
 using Entities;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,31 +10,25 @@ namespace BLL
     public class UserBL
     {
         private UserDAO userDAO;
-        private int idGenegator = 0;
         public UserVO SelectedUser { get; set; }
         private List<UserVO> _users;
 
         public UserBL()
         {
             userDAO = new UserDAO();
-            _users = new List<UserVO>();
-            foreach (var user in userDAO.GetDataSource())
-            {
-                _users.Add(user);
-            }
+            _users = userDAO.GetDataSource().ToList();
         }
         public DataView GetDataSource()
         {
-            return MakeDataView(_users);
+            return TablesManager.CreateDataView(_users);
         }
 
         public void Add(string firstName, string lastName, DateTime birthDate, List<PrizeVO> prizes)
         {
-            var newUser = new UserVO(idGenegator, firstName, lastName, birthDate, prizes);
-            userDAO.Add(newUser);
+            var newUser = new UserVO(firstName, lastName, birthDate, prizes);
+            userDAO.AddAndSetId(newUser);
             _users.Add(newUser);
-            SelectedUser = _users.Last();
-            idGenegator++;
+            SelectedUser = newUser;
         }
 
         public void RemoveSelectedUser()
@@ -59,21 +52,38 @@ namespace BLL
 
         public void ChangeSelectedUser(string firstName, string lastName, DateTime birthDate, List<PrizeVO> prizes)
         {
+            foreach (var prize in prizes)
+            {
+                if (!SelectedUser.Prizes.Contains(prize))
+                {
+                    userDAO.AddRevard(SelectedUser, prize);
+                }
+            }
+            foreach (var prize in SelectedUser.Prizes)
+            {
+                if (!prizes.Contains(prize))
+                {
+                    userDAO.RemoveRevardLink(SelectedUser, prize);
+                }
+            }
             var newUser = new UserVO(SelectedUser.Id, firstName, lastName, birthDate, prizes);
-            userDAO.ChangeUser(SelectedUser, newUser);
+            userDAO.ChangeUser(SelectedUser, firstName, lastName, birthDate);
             int index = _users.IndexOf(SelectedUser);
             _users.Remove(SelectedUser);
             _users.Insert(index, newUser);
+
         }
 
         public void RevardSelectedUser(PrizeVO prize)
         {
             SelectedUser.AddPrize(prize);
+            userDAO.AddRevard(SelectedUser, prize);
         }
 
         public void DeleteRevardFromSelectedUser(PrizeVO prize)
         {
             SelectedUser.RemovePrize(prize);
+            userDAO.AddRevard(SelectedUser, prize);
         }
 
         public void SetSelectedItemById(int id)
@@ -83,39 +93,6 @@ namespace BLL
             {
                 SelectedUser = temp.First();
             }
-        }
-
-        private DataView MakeDataView<T>(T list)
-            where T : IList
-        {
-            var table = new DataTable();
-
-
-            if (list.Count == 0)
-            {
-                return null;
-            }
-
-            var properties = list[0].GetType().GetProperties();
-            foreach (var property in properties)
-            {
-                table.Columns.Add(property.Name, property.PropertyType);
-            }
-
-            if (list.Count != 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    var row = table.NewRow();
-                    for (int j = 0; j < properties.Length; j++)
-                    {
-                        row[properties[j].Name] = properties[j].GetValue(list[i]);
-                    }
-                    table.Rows.Add(row);
-                }
-            }
-
-            return new DataView(table);
         }
     }
 }

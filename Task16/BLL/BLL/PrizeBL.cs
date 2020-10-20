@@ -1,6 +1,5 @@
 ﻿using DAL;
 using Entities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -11,7 +10,6 @@ namespace BLL
     public class PrizeBL
     {
         private PrizeDAO prizeDAO;
-        private int idGenerator = 0;
         public PrizeVO SelectedPrize { get; set; }
         private List<PrizeVO> _prizes;
 
@@ -32,16 +30,15 @@ namespace BLL
 
         public DataView GetDataSource()
         {
-            return MakeDataView(_prizes);
+            return TablesManager.CreateDataView(_prizes);
         }
 
         public void Add(string name, string description)
         {
-            var newPrize = new PrizeVO(idGenerator, name, description);
-            prizeDAO.Add(newPrize);
+            var newPrize = new PrizeVO(name, description);
+            prizeDAO.AddAndSetId(newPrize);
             _prizes.Add(newPrize);
-            SelectedPrize = _prizes.Last();
-            idGenerator++;
+            SelectedPrize = newPrize;
         }
 
         public void RemoveSelectedPrize()
@@ -65,11 +62,11 @@ namespace BLL
 
         public void ChangeSelectedPrize(string name, string description)
         {
-            var newPrize = new PrizeVO(SelectedPrize.Id, name, description);
-            prizeDAO.ChangePrize(SelectedPrize, newPrize);
+            prizeDAO.ChangePrize(SelectedPrize, name, description);
             int index = _prizes.IndexOf(SelectedPrize);
+            int id = SelectedPrize.Id;
             _prizes.Remove(SelectedPrize);
-            _prizes.Insert(index, newPrize);
+            _prizes.Insert(index, new PrizeVO(id, name, description));
         }
 
         public void SetSelectedItemById(int id)
@@ -79,38 +76,6 @@ namespace BLL
             {
                 SelectedPrize = temp.First();
             }
-        }
-
-        private DataView MakeDataView<T>(T list)
-            where T : IList
-        {
-
-            DataTable table = new DataTable();
-
-            if (list.Count == 0)
-            {
-                return null;
-            }
-
-            var properties = list[0].GetType().GetProperties();
-            foreach (var property in properties)
-            {
-                table.Columns.Add(property.Name, property.PropertyType);
-            }
-
-            if (list.Count != 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    var row = table.NewRow();
-                    for (int j = 0; j < properties.Length; j++)
-                    {
-                        row[properties[j].Name] = properties[j].GetValue(list[i]);
-                    }
-                    table.Rows.Add(row);
-                }
-            }
-            return new DataView(table);
         }
     }
 }

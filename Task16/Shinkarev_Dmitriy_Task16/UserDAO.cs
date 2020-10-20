@@ -1,55 +1,40 @@
 ﻿using Entities;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace DAL
 {
     public class UserDAO
     {
-        private static List<UserVO> _users = new List<UserVO>();
-
-        public UserDAO()
-        {
-            var u1 = new UserVO(3, "petia", "pupkin", DateTime.Now, new List<PrizeVO>());
-            var u2 = new UserVO(4, "vasia", "lupin", DateTime.Now, new List<PrizeVO>());
-            _users.Add(u1);
-            _users.Add(u2);
-        }
-
         public ReadOnlyCollection<UserVO> GetDataSource()
         {
-            return new ReadOnlyCollection<UserVO>(_users);
+            return new ReadOnlyCollection<UserVO>(Repository.GetAllUsers());
         }
-        public void Add(UserVO user)
+
+        public void AddAndSetId(UserVO user)
         {
-            _users.Add(user);
+            Repository.AddUserAndSetID(user);
         }
 
         public void Remove(UserVO user)
         {
-            _users.Remove(user);
+            Repository.RemoveUser(user.Id);
         }
 
-        public void ChangeUser(UserVO oldUser, UserVO newUser)
+        public void ChangeUser(UserVO changedUser, string firstName, string lastName, DateTime birthDate)
         {
-            int index = _users.IndexOf(oldUser);
-            _users.Remove(oldUser);
-            _users.Insert(index, newUser);
+            var user = new UserVO(changedUser.Id, firstName, lastName, birthDate, changedUser.Prizes);
+            Repository.ChangeUser(user);
         }
 
-        public void RevardUser(UserVO user, PrizeVO prize)
+        public void AddRevard(UserVO user, PrizeVO prize)
         {
-            int index = _users.IndexOf(user);
-            _users[index].AddPrize(prize);
+            Repository.AddUserPrize(user, prize);
         }
 
-        public static void RemovePrizeFromUsers(PrizeVO prize)
+        public void RemoveRevardLink(UserVO user, PrizeVO prize)
         {
-            for (int i = 0; i < _users.Count; i++)
-            {
-                _users[i].Prizes.Remove(prize);
-            }
+            Repository.RemoveUserPrize(user, prize);
         }
     }
 }

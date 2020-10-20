@@ -46,8 +46,8 @@
             // 
             // addUserLayoutPanel
             // 
-            this.addUserLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.addUserLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.addUserLayoutPanel.Controls.Add(this.newUserFirstNameLabel);
             this.addUserLayoutPanel.Controls.Add(this.newUserFirstNameTextBox);
@@ -145,8 +145,8 @@
             // 
             // newUserAcceptButton
             // 
-            this.newUserAcceptButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.newUserAcceptButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.newUserAcceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.newUserAcceptButton.Location = new System.Drawing.Point(3, 3);
@@ -159,8 +159,8 @@
             // 
             // newUserCancelButton
             // 
-            this.newUserCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.newUserCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.newUserCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.newUserCancelButton.Location = new System.Drawing.Point(153, 3);

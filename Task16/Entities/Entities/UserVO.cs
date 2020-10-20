@@ -20,28 +20,53 @@ namespace Entities
         public string LastName { get => _lastName; }
         public DateTime BirthDate { get => _birthDate.Date; }
         public BindingList<PrizeVO> Prizes { get => _userPrizes; }
-        public string Age
+        public int Age
         {
             get
             {
                 if (DateTime.Now.DayOfYear < _birthDate.DayOfYear)
                 {
-                    return (DateTime.Now.Year - _birthDate.Year - 1).ToString() + " years old";
+                    return DateTime.Now.Year - _birthDate.Year - 1;
                 }
                 else
                 {
-                    return (DateTime.Now.Year - _birthDate.Year).ToString() + " years old";
+                    return DateTime.Now.Year - _birthDate.Year;
                 }
             }
         }
 
-        public UserVO(int id, string firstName, string lastName, DateTime birthDate, List<PrizeVO> prizes)
+        public UserVO(int id, string firstName, string lastName, DateTime birthDate, IList<PrizeVO> prizes)
         {
             _id = id;
             _firstName = firstName;
             _lastName = lastName;
             _birthDate = birthDate;
             _userPrizes = new BindingList<PrizeVO>(prizes);
+        }
+
+        public UserVO(int id, string firstName, string lastName, DateTime birthDate)
+        {
+            _id = id;
+            _firstName = firstName;
+            _lastName = lastName;
+            _birthDate = birthDate;
+            _userPrizes = new BindingList<PrizeVO>();
+        }
+
+        public UserVO(string firstName, string lastName, DateTime birthDate, IList<PrizeVO> prizes)
+        {
+            _firstName = firstName;
+            _lastName = lastName;
+            _birthDate = birthDate;
+            _userPrizes = new BindingList<PrizeVO>(prizes);
+        }
+
+        public void SetId(int id)
+        {
+            if (_id == default)
+            {
+                _id = id;
+            }
         }
 
         public void AddPrize(PrizeVO prize)
