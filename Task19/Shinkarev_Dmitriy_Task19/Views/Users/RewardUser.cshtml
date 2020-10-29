@@ -1,0 +1,48 @@
+﻿<h1>Revard user</h1>
+<form method="post" id="rewardUserForm">
+    <input type="hidden" name="selectedRewardId" id="selectedRewardId" />
+    <input type="hidden" name="userId" value="@Model.Key.Id" />
+
+    <select id="availableRewardsList" name="rewardId" onchange="changeSelectedAvailableReward()">
+
+        @foreach (var reward in Model.Value)
+         {
+                <option value="@reward.Id">
+                    @reward.Name
+                </option>
+         }
+    </select>
+
+    <div id="rewardInformationContainer"></div>
+    
+        @foreach (var reward in Model.Value)
+         {
+            <div id="@reward.Id" style="display: none">@reward.Description</div>
+         }
+    
+    <input type="button" value="Add" onclick="rewardUser()"/><br />
+    <input type="button" value="Cancel" onclick="cancel()" />
+
+    <script>
+        var form = document.getElementById('rewardUserForm'),
+            list = document.getElementById('availableRewardsList'),
+            selectedId = document.getElementById('selectedRewardId'),
+            informationContainer = document.getElementById('rewardInformationContainer');
+
+        function changeSelectedAvailableReward() {
+            var index = list.options.selectedIndex;
+            selectedId = list.options[index].value;
+
+            var information = document.getElementById(index).innerHTML;
+            informationContainer.innerHTML = information;
+        }
+
+        function rewardUser() {
+            form.submit();
+        }
+
+        function cancel() {
+            location.href = "/Users";
+        }
+    </script>
+</form>

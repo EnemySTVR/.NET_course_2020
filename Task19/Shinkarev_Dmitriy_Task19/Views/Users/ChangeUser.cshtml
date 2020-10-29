@@ -1,0 +1,46 @@
+﻿<h1>Change user</h1>
+<form method="post" id="changeUserForm">
+    <input type="hidden" name="userId" value="@Model.Item1.Id" />
+    <p>Name:</p>
+    <p>FirstName:</p>
+    <input type="text" name="newUserFirstName" value="@Model.Item1.FirstName" /><br />
+    <p>LastName:</p>
+    <input type="text" name="newUserLastName" value="@Model.Item1.LastName" /><br />
+    <p>BirthDate:</p>
+    <input type="date" name="newUserBirthDate" value="@Model.Item1.BirthDate.ToString("yyyy-MM-dd")"
+           min="@Model.Item1.BirthDate.AddYears(-150).ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" /><br />
+
+    <div class="scrollable">
+
+        @foreach (var rewardChecker in Model.Item2)
+        {
+            @if (rewardChecker.Value == true)
+            {
+                <label>
+                    <input type="checkbox"
+                           value="@rewardChecker.Key.Id"
+                           name="prizesId[]"
+                           checked />
+
+                    @rewardChecker.Key.Name
+
+                </label><br />
+            }
+            else
+            {
+                <label>
+                    <input type="checkbox"
+                           value="@rewardChecker.Key.Id"
+                           name="prizesId[]" />
+        
+                    @rewardChecker.Key.Name
+
+                </label><br />
+            }
+
+        }
+    </div>
+
+    <input type="submit" value="Change" /><br />
+    <input type="button" value="Cancel" onclick="location.href ='/Users'" />
+</form>

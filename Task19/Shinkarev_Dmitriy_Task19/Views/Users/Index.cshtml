@@ -1,0 +1,115 @@
+﻿<form method="post" id="allUsersForm">
+    <input type="hidden" name="selectedUserId" id="selectedUserId" />
+    <table class="layout">
+        <tr>
+            <td></td>
+            <td class="header">
+                <h1>All users</h1>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="buttonsViewCell">
+                <table class="buttonsTable">
+                    <tr>
+                        <td>
+                            <input type="button"
+                                   name="addButton"
+                                   value="Add"
+                                   onclick="goToAddUserView()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button"
+                                   name="changeButton"
+                                   value="Change"
+                                   onclick="goToUserChangeView()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button"
+                                   name="removeButton"
+                                   value="Remove"
+                                   onclick="removeUser()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button"
+                                   name="rewardButton"
+                                   value="Reward"
+                                   onclick="goToRewardUserView()" />
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+            <td class="modelViewCell">
+                <select size="5" id="usersList" name="userId" onchange="changeSelectedUser()">
+
+                    @foreach (var user in Model)
+                    {
+                        <option value="@user.Id">
+                            @user.Id @user.FirstName @user.LastName @user.BirthDate @user.Age
+                        </option>
+                    }
+                </select>
+
+            </td>
+            <td class="informationViewCell">
+                <div id="userInformationContainer"></div>
+                @foreach (var user in Model)
+                {
+                    <div id="@user.Id" style="display: none">
+                        <h3 class="information" name="selectedUserFirstName">@user.FirstName</h3>
+                        <h1 class="information" name="selectedUserLastName">@user.LastName</h1>
+                        <h3 class="information" name="selectedUserBirthDate">@user.BirthDate</h3>
+                        <h3 class="information" name="selectedUserAge">@user.Age</h3>
+                        <div class="userRewardsInformation">
+                            <select size="3" name="selectedUserRewards">
+                                @foreach (var reward in user.Rewards)
+                                {
+                                    <option disabled>@reward.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                }
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        var usersList = document.getElementById('usersList'),
+            selectedUserId = document.getElementById('selectedUserId'),
+            userInformationContainer = document.getElementById('userInformationContainer');
+
+        function changeSelectedUser() {
+            var index = usersList.options.selectedIndex;
+            selectedUserId = usersList.options[index].value;
+
+            var selectedUserInformation = document.getElementById(selectedUserId).innerHTML;
+            userInformationContainer.innerHTML = selectedUserInformation;
+        }
+
+        function goToUserChangeView() {
+            location.href = '/Users/ChangeUser?selectedUserId=' + selectedUserId;
+        }
+
+        function goToAddUserView() {
+            location.href = '/Users/AddUser';
+        }
+
+        function removeUser() {
+            location.href = '/Users/RemoveUser?selectedUserId=' + selectedUserId;
+        }
+
+        function goToRewardUserView() {
+            location.href = '/Users/RewardUser?selectedUserId=' + selectedUserId;
+        }
+    </script>
+
+</form>
+

@@ -1,0 +1,25 @@
+﻿<h1>Add user</h1>
+<form method="post" name="addUserForm">
+    <p>FirstName:</p>
+    <input type="text" name="newUserFirstName" /><br />
+    <p>LastName:</p>
+    <input type="text" name="newUserLastName" /><br />
+    <p>BirthDate:</p>
+    <input type="date" name="newUserBirthDate" value="@DateTime.Now.ToString("yyyy-MM-dd")"
+           min="@DateTime.Now.AddYears(-150).ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" /><br />
+
+    <div class="scrollable">
+
+        @foreach (var reward in Model)
+        {
+            <label><input type="checkbox" value="@reward.Id" name="prizesId[]" />@reward.Name</label><br />
+        }
+    </div>
+
+    <input type="submit" value="Add" /><br />
+    <input type="button" value="Cancel" onclick="location.href ='/Users'" />
+
+    <script>
+
+    </script>
+</form>

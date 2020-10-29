@@ -1,0 +1,16 @@
+﻿<h1>Add reward</h1>
+<form method="post" name="addRewardForm">
+    <input type="hidden" name="rewardId" value="@Model.Id" />
+    <p>Name:</p>
+    <input type="text" name="newRewardName" value="@Model.Name"/><br />
+    <p>Description:</p>
+    <input type="text" name="newRewardDescription" value="@Model.Description"/><br />
+
+
+    <input type="submit" value="Change" /><br />
+    <input type="button" value="Cancel" onclick="location.href ='/Rewards'" />
+
+    <script>
+
+    </script>
+</form>

@@ -1,0 +1,96 @@
+﻿<form method="post" id="allRewardsForm">
+    <input type="hidden" name="selectRewardId" id="selectRewardId" />
+    <table class="layout">
+        <tr>
+            <td></td>
+            <td class="header">
+                <h1>All rewards</h1>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="buttonsViewCell">
+                <table class="buttonsTable">
+                    <tr>
+                        <td>
+                            <input type="button"
+                                   value="Add"
+                                   onclick="goToAddRewardView()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button"
+                                   value="Change"
+                                   onclick="goToRewardChangeView()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button"
+                                   value="Remove"
+                                   onclick="removeReward()" />
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+            <td class="modelViewCell">
+                <select size="5" id="rewardsList" name="rewardId" onchange="changeSelectedReward()">
+
+                    @foreach (var reward in Model)
+                    {
+                        var str = new System.Text.StringBuilder();
+                        str.Append(reward.Id + " " + reward.Name + " ");
+                        if (reward.Description.Length < 20)
+                        {
+                            str.Append(reward.Description);
+                        }
+                        else
+                        {
+                            str.Append(reward.Description.SubString(0, 17) + "...");
+                        }
+                        <option value="@reward.Id">
+                            @str.ToString()
+                        </option>
+                    }
+                </select>
+            </td>
+            <td class="informationViewCell">
+                <div id="rewardInformationContainer"></div>
+                @foreach (var reward in Model)
+                {
+                    <div id="@reward.Id" style="display: none">
+                        <h3 class="information">@reward.Name</h3>
+                        <p>@reward.Description</p>
+                    </div>
+                }
+            </td>
+        </tr>
+
+
+    </table>
+</form>
+<script>
+    var allRewardsForm = document.getElementById('allRewardsForm'),
+        rewardsList = document.getElementById('rewardsList'),
+        selectRewardId = document.getElementById('selectRewardId'),
+        rewardInformationContainer = document.getElementById('rewardInformationContainer');
+
+    function changeSelectedReward(){
+        var index = rewardsList.options.selectedIndex;
+        selectRewardId = rewardsList.options[index].value;
+
+        var selectedRewardInformation = document.getElementById(selectRewardId).innerHTML;
+        rewardInformationContainer.innerHTML = selectedRewardInformation;
+    }
+    function goToAddRewardView(){
+        location.href = "/Rewards/AddReward";
+    }
+    function goToRewardChangeView(){
+        location.href = "/Rewards/ChangeReward?rewardId=" + selectRewardId;
+    }
+    function removeReward(){
+        location.href = "/Rewards/RemoveReward?rewardId=" + selectRewardId;
+    }
+</script>
