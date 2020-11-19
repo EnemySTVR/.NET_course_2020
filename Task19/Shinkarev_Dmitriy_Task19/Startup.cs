@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Shinkarev_Dmitriy_Task19.Data.interfaces;
+using Shinkarev_Dmitriy_Task19.Data.Interfaces;
 using Shinkarev_Dmitriy_Task19.Data.mocks;
 
 namespace Shinkarev_Dmitriy_Task19

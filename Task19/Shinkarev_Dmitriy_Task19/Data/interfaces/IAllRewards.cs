@@ -1,7 +1,7 @@
 ﻿using Shinkarev_Dmitriy_Task19.Data.Models;
 using System.Collections.Generic;
 
-namespace Shinkarev_Dmitriy_Task19.Data.interfaces
+namespace Shinkarev_Dmitriy_Task19.Data.Interfaces
 {
     public interface IAllRewards
     {
