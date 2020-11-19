@@ -30,23 +30,13 @@ namespace Shinkarev_Dmitriy_Task19.Data.mocks
                 .FirstOrDefault();
         }
 
-        public void AddRewardAndSetId(string name, string description)
+        public void AddRewardAndSetId(Reward reward)
         {
-            var reward = new Reward()
-            {
-                Name = name,
-                Description = description
-            };
             rewardDAO.AddRewardAndSetID(reward);
         }
 
-        public void ChangeReward(int rewardId, string newName, string newDescription)
+        public void ChangeReward(Reward reward)
         {
-            var reward = rewardDAO.AllRewards
-                .Where(x => x.Id == rewardId)
-                .FirstOrDefault();
-            reward.Name = newName;
-            reward.Description = newDescription;
             rewardDAO.ChangeReward(reward);
         }
 
@@ -58,6 +48,11 @@ namespace Shinkarev_Dmitriy_Task19.Data.mocks
                 userRewardsDAO.RemoveUserReward(user.Id, rewardId);
             }
             rewardDAO.RemoveReward(rewardId);
+        }
+
+        public List<Reward> GetRewardsForConcretUser(int userId)
+        {
+           return userRewardsDAO.GetRewardsForConcretUser(userId);
         }
     }
 }

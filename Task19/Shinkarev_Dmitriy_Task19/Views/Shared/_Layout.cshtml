@@ -1,37 +1,32 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="~/css/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <table class="layout" border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td colspan="3" class="headCell">
-                <table>
-                    <tr>
-                        <td>
-                            <a href="@Url.Action("Index", "Home")"><img src="~/img/HomeButton.jpg"/></a>
-                        </td>
-                        <td>
-                            <div class="navigation">
-                                @Html.ActionLink("Users", "Index", "Users")
-                                @Html.ActionLink("Rewards", "Index", "Rewards")
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-        </tr>
-        <tr>
-            <td class="container">
-                <div>
-                    @RenderBody()
-                </div>
-            </td>
-        </tr>
-    </table>
-    
+    <div class="mainWrap">
+        <div class="header">
+            <div>
+                <h2><a asp-controller="Home" asp-action="Index" class="link">Users and their rewards</a></h2>
+            </div>
+            <div class="navigation">
+                <a asp-controller="Users" asp-action="Index" class="navigationLink link">Users</a>
+                <a asp-controller="Rewards" asp-action="Index"class="navigationLink link">Rewards</a>
+            </div>
+        </div>
+        <div class="contentWrap">
+            @RenderBody()
+        </div>
+        <div class="footer">
+            Epam .NET cource 2020 Shinkarev Dmitriy
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

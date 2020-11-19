@@ -7,8 +7,9 @@ namespace Shinkarev_Dmitriy_Task19.Data.interfaces
     {
         List<Reward> AllRewards { get; }
         Reward GetRewardById(int rewardId);
-        void AddRewardAndSetId(string name, string description);
-        void ChangeReward(int id, string newName, string newDescription);
+        void AddRewardAndSetId(Reward reward);
+        void ChangeReward(Reward reward);
         void RemoveReward(int id);
+        List<Reward> GetRewardsForConcretUser(int userId);
     }
 }

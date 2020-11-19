@@ -38,42 +38,14 @@ namespace Shinkarev_Dmitriy_Task19.Data.mocks
             return user;
         }
 
-        public void AddUserAndSetId(string firstName, string lastName, DateTime birthDate, List<Reward> rewards)
+        public void AddUserAndSetId(User user)
         {
-            var user = new User()
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                BirthDate = birthDate
-            };
             userDAO.AddUserAndSetID(user);
-            RewardUser(user.Id, rewards);
         }
 
-        public void ChangeUser(int id, string newFirstName, string newLastName, DateTime newBirthDate, List<Reward> rewards)
+        public void ChangeUser(User user)
         {
-            var user = userDAO.AllUsers
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-            user.FirstName = newFirstName;
-            user.LastName = newLastName;
-            user.BirthDate = newBirthDate;
-            user.Rewards = userRewardsDAO.GetRewardsForConcretUser(id);
-
-            foreach (var reward in rewards)
-            {
-                if (!user.Rewards.Contains(reward))
-                {
-                    userRewardsDAO.AddUserReward(user.Id, reward.Id);
-                }
-            }
-            foreach (var prize in user.Rewards)
-            {
-                if (!rewards.Contains(prize))
-                {
-                    userRewardsDAO.RemoveUserReward(user.Id, prize.Id);
-                }
-            }
+            
             userDAO.ChangeUser(user);
         }
 

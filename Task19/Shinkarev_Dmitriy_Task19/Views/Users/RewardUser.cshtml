@@ -1,31 +1,63 @@
-﻿<h1>Revard user</h1>
+﻿@model User
+
 <form method="post" id="rewardUserForm">
     <input type="hidden" name="selectedRewardId" id="selectedRewardId" />
-    <input type="hidden" name="userId" value="@Model.Key.Id" />
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Rewards" />
 
-    <select id="availableRewardsList" name="rewardId" onchange="changeSelectedAvailableReward()">
+    <div class="entitiesFormWrap">
+        <div class="inputProperties">
+            <h2>Revard @Model.FirstName @Model.LastName</h2>
+            <div class="inputBox">
+                <select id="availableRewardsList" name="rewardId" onchange="changeSelectedAvailableReward()">
 
-        @foreach (var reward in Model.Value)
-         {
-                <option value="@reward.Id">
-                    @reward.Name
-                </option>
-         }
-    </select>
+                    @{
+                        if (ViewBag.AvailableRewards.Count > 0)
+                        {
+                            foreach (var reward in ViewBag.AvailableRewards)
+                            {
+                                <option value="@reward.Id">
+                                    @reward.Name
+                                </option>
+                            }
+                        }
+                        else
+                        {
+                            <option>
+                                no rewards available
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+            @if (ViewBag.AvailableRewards.Count > 0)
+            {
+                <div id="rewardInformationContainer" class="rewardInformationContainer">@ViewBag.AvailableRewards[0].Description</div>
+                foreach (var reward in ViewBag.AvailableRewards)
+                {
+                    <div id="@reward.Id" style="display: none">@reward.Description</div>
+                }
+                <div class="inputBox">
+                    <button type="submit">Reward</button>
+                    <button type="button" onclick="location.href = '/Users'">Cancel</button>
+                </div>
 
-    <div id="rewardInformationContainer"></div>
-    
-        @foreach (var reward in Model.Value)
-         {
-            <div id="@reward.Id" style="display: none">@reward.Description</div>
-         }
-    
-    <input type="button" value="Add" onclick="rewardUser()"/><br />
-    <input type="button" value="Cancel" onclick="cancel()" />
+            }
+            else
+            {
+                <div class="inputBox">
+                    <button type="submit" disabled>Reward</button>
+                    <button type="button" onclick="location.href = '/Users'">Cancel</button>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
 
     <script>
-        var form = document.getElementById('rewardUserForm'),
-            list = document.getElementById('availableRewardsList'),
+        var list = document.getElementById('availableRewardsList'),
             selectedId = document.getElementById('selectedRewardId'),
             informationContainer = document.getElementById('rewardInformationContainer');
 
@@ -33,16 +65,8 @@
             var index = list.options.selectedIndex;
             selectedId = list.options[index].value;
 
-            var information = document.getElementById(index).innerHTML;
+            var information = document.getElementById(selectedId).innerHTML;
             informationContainer.innerHTML = information;
-        }
-
-        function rewardUser() {
-            form.submit();
-        }
-
-        function cancel() {
-            location.href = "/Users";
         }
     </script>
 </form>

@@ -1,25 +1,90 @@
-﻿<h1>Add user</h1>
-<form method="post" name="addUserForm">
-    <p>FirstName:</p>
-    <input type="text" name="newUserFirstName" /><br />
-    <p>LastName:</p>
-    <input type="text" name="newUserLastName" /><br />
-    <p>BirthDate:</p>
-    <input type="date" name="newUserBirthDate" value="@DateTime.Now.ToString("yyyy-MM-dd")"
-           min="@DateTime.Now.AddYears(-150).ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" /><br />
+﻿@model Shinkarev_Dmitriy_Task19.Data.Models.User
 
-    <div class="scrollable">
+<form asp-controller="Users" asp-action="AddUser" method="post">
+    <div class="entitiesFormWrap">
+        <div class="inputProperties">
+            <h2>Add user</h2>
+            <div class="inputBox">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" />
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div class="inputBox">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" />
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div class="inputBox">
+                <label asp-for="BirthDate"></label>
+                <input asp-for="BirthDate" value="@DateTime.Now.ToString("yyyy-MM-dd")"
+                       min="@DateTime.Now.AddYears(-150).ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="BirthDate"></span>
+            </div>
+            <div class="inputBox">
+                <label>Rewards:</label>
+                <div class="rewardCheckBoxes">
 
-        @foreach (var reward in Model)
-        {
-            <label><input type="checkbox" value="@reward.Id" name="prizesId[]" />@reward.Name</label><br />
-        }
+                    @foreach (var rewardChecker in ViewBag.RewardChecker)
+                    {
+                        @if (rewardChecker.Value == true)
+                        {
+                            <label>
+                                <input type="checkbox"
+                                       value="@rewardChecker.Key.Id"
+                                       name="chekedRewardsId[]"
+                                       checked />
+
+                                @rewardChecker.Key.Name
+
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                <input type="checkbox"
+                                       value="@rewardChecker.Key.Id"
+                                       name="chekedRewardsId[]" />
+
+                                @rewardChecker.Key.Name
+
+                            </label>
+                        }
+
+                    }
+                </div>
+            </div>
+            <div class="inputBox">
+                <button type="submit">Add</button>
+                <button type="button" onclick="location.href ='/Users'">Cancel</button>
+            </div>
+        </div>
     </div>
-
-    <input type="submit" value="Add" /><br />
-    <input type="button" value="Cancel" onclick="location.href ='/Users'" />
-
     <script>
+
+        function addUserCheckValid() {
+            var firstName = document.getElementById("newUserFirstName"),
+                lastName = document.getElementById("newUserLastName"),
+                addButton = document.getElementById("addButton"),
+                uncorrectInputMessageBox = document.getElementById("uncorrectInputUserAdd"),
+                isValidSymbolsRegex = /^(([A-я]+|[^\W0-9_]))$/,
+                isValid = true;
+
+            addButton.disabled = false;
+
+            if (isValidSymbolsRegex.test(firstName.value) &&
+                isValidSymbolsRegex.test(lastName.value)) {
+                isValid = true;
+                uncorrectInputMessageBox.style.visibility = "hidden";
+            }
+            else {
+                isValid = false;
+                uncorrectInputMessageBox.style.visibility = "visible";
+            }
+
+            if (isValid == false) {
+                addButton.disabled = true;
+            }
+        }
 
     </script>
 </form>

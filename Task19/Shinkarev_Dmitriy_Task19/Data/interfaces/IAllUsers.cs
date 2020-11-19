@@ -8,8 +8,8 @@ namespace Shinkarev_Dmitriy_Task19.Data.interfaces
     {
         List<User> AllUsers { get; }
         User GetUserById(int userId);
-        void AddUserAndSetId(string firstName, string lastName, DateTime birthDate, List<Reward> rewards);
-        void ChangeUser(int id, string newFirstName, string newLastName, DateTime newBirthDate, List<Reward> rewards);
+        void AddUserAndSetId(User user);
+        void ChangeUser(User user);
         void RemoveUser(int userId);
         void RewardUser(int userId, int rewardId);
         void RewardUser(int userId, List<Reward> rewards);

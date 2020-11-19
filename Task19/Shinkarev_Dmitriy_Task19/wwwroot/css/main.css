@@ -1,7 +1,208 @@
-﻿body {
-    height: 100%;
-    margin: auto;
+﻿* {
+    margin: 0;
+    padding: 0;
 }
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+.mainWrap {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+    align-content: stretch;
+}
+
+.header {
+    flex-basis: 80px;
+    padding: 0 20px;
+    background: gray;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.navigationLink {
+    margin: 0 5px;
+}
+.link {
+    text-decoration: none; 
+    color: black;
+}
+
+.contentWrap {
+    flex-basis: calc(100% - 100px);
+    background: #9AE5EE;
+    overflow: auto;
+}
+
+.homeWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.homeHeader {
+    margin: 15px;
+}
+.homeBox {
+    max-width: 700px;
+    padding: 0 20px;
+}
+
+.entitiesWrap {
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    padding: 0 2.5px;
+}
+
+.buttonsBox {
+    max-width: 200px;
+    padding: 2.5px;
+    flex-grow: 1;
+}
+.buttons {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+}
+
+.entitiesViewBox {
+    min-width: 300px;
+    max-width: 600px;
+    padding: 2.5px;
+    flex-grow: 3;
+}
+.entitiesView {
+    height: 100%;
+    min-height: 250px;
+}
+select.entitiesViewSelect {
+    width: 100%;
+    height: calc(100% - 22px);
+    overflow: auto;
+}
+
+.entitiesInformationBox {
+    min-height: 200px;
+    padding: 2.5px;
+    flex-grow: 2;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+.entitiesInformation {
+    min-height: 200px;
+    margin-top: 25px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+p.firstLineInformation {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 5px;
+}
+p.secondLineInformation {
+    font-weight: bold;
+    font-size: 18px;
+}
+p.information {
+    font-size: 14px;
+    max-width: 250px;
+}
+select.information {
+    margin-top: 15px;
+    min-width: 80px;
+    max-width: 180px;
+    width: 100%;
+    overflow: auto;
+    padding: 5px 10px;
+}
+
+.entitiesFormWrap {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+.inputProperties {
+    width: 300px;
+    margin: 15px 150px 0 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+}
+input[type=text] {
+    padding: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+input[type=date] {
+    padding: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+input[type=checkbox] {
+    margin: 0;
+}
+.rewardCheckBoxes {
+    margin: 0;
+    padding: 5px 15px;
+    overflow: auto;
+    max-width: 164px;
+    height: 100px;
+    background: white;
+    border: ridge;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+}
+
+.rewardInformationContainer {
+    margin: 10px;
+}
+
+.rewardDescriptionInputTextBox {
+    font-family: 'Microsoft Sans Serif';
+    resize: none;
+    padding: 3px;
+}
+
+.inputBox {
+    width: 100%;
+    margin: 3px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.footer {
+    flex-basis: 20px;
+    background: gray;
+    text-align: right;
+    padding: 0 40px;
+}
+
+button {
+    margin: 1px 0;
+    max-width: 200px;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+
+
 
 table.layout {
     margin-left: auto;
@@ -40,15 +241,7 @@ div.userRewardsInformation {
     height: 100%;
     max-height: 33vh;
 }
-div.scrollable {
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-    width: 200px; 
-    height: 100px;
-    background-color: aliceblue;
-    border: ridge;
-}
+
 
 thead{
     background-color: darkgray;
@@ -76,27 +269,12 @@ td.informationViewCell {
     vertical-align: top;
     width: 45%;
 }
-td.headCell {
-    background-color: grey;
-    height: 15vh;
-}
-td.header {
-    text-align: center;
-}
-td.container {
-    vertical-align: top;
-    height: 85vh;
-    background-color: lightblue;
-}
 
 div.navigation {
     margin-left: 30px;
 }
 
-button {
-    width: 50%;
-    min-width: 150px;
-}
+
 
 h1.information {
     margin-bottom: 4px;
@@ -105,4 +283,8 @@ h1.information {
 h3.information {
     margin-bottom: 4px;
     margin-top: 4px;
+}
+
+.input-validation-error{
+    border-color: red;
 }

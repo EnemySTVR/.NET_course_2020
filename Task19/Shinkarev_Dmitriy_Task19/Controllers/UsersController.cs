@@ -20,43 +20,127 @@ namespace Shinkarev_Dmitriy_Task19.Controllers
         }
 
         [HttpGet]
-        public ViewResult Index()
+        public IActionResult Index()
         {
             ViewBag.Title = "Page with users";
             return View(_allUsers.AllUsers);
         }
 
         [HttpGet]
-        public ViewResult RemoveUser(int selectedUserId)
+        public IActionResult RemoveUser(int selectedUserId)
         {
-            ViewBag.Title = "Page with users";
-            _allUsers.RemoveUser(selectedUserId);
-            return View("Index", _allUsers.AllUsers);
+            if (selectedUserId != 0)
+            {
+                _allUsers.RemoveUser(selectedUserId);
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ViewResult AddUser()
+        public IActionResult AddUser()
         {
             ViewBag.Title = "Add new user";
-            return View(_allRewards.AllRewards);
+            ViewBag.RewardChecker = GetRewardChecker();
+            return View();
         }
 
         [HttpPost]
-        public ViewResult AddUser(string newUserFirstName, string newUserLastName, DateTime newUserBirthDate, int[] prizesId)
+        public IActionResult AddUser(User model, int[] chekedRewardsId)
         {
-            ViewBag.Title = "Page with users";
-            var rewards = _allRewards.AllRewards
-                .Where(x => prizesId.Contains(x.Id))
+            
+            if (ModelState.IsValid)
+            {
+                var rewards = _allRewards.AllRewards
+                .Where(x => chekedRewardsId.Contains(x.Id))
                 .ToList();
-            _allUsers.AddUserAndSetId(newUserFirstName, newUserLastName, newUserBirthDate, rewards);
-            return View("Index", _allUsers.AllUsers);
+                _allUsers.AddUserAndSetId(model);
+                _allUsers.RewardUser(model.Id, rewards);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.RewardChecker = GetRewardChecker(chekedRewardsId);
+                return View(model);
+            }
         }
 
         [HttpGet]
-        public ViewResult ChangeUser(int selectedUserId)
+        public IActionResult ChangeUser(int selectedUserId)
         {
+            if (selectedUserId == 0)
+            {
+                return RedirectToAction("Index");
+            }
             ViewBag.Title = "Change user";
             var user = _allUsers.GetUserById(selectedUserId);
+            ViewBag.RewardChecker = GetRewardChecker(user);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeUser(User user, int[] chekedRewardsId)
+        {
+            if (ModelState.IsValid)
+            {
+                user.Rewards = _allRewards.GetRewardsForConcretUser(user.Id);
+                var checkedRewards = _allRewards.AllRewards
+                .Where(x => chekedRewardsId.Contains(x.Id))
+                .ToList();
+
+                foreach (var reward in checkedRewards)
+                {
+                    if (!user.Rewards.Contains(reward))
+                    {
+                        _allUsers.RewardUser(user.Id, reward.Id);
+                    }
+                }
+                foreach (var reward in user.Rewards)
+                {
+                    if (!checkedRewards.Contains(reward))
+                    {
+                        _allUsers.RemoveRevardFromUser(user.Id, reward.Id);
+                    }
+                }
+
+                _allUsers.ChangeUser(user);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.RewardChecker = GetRewardChecker(chekedRewardsId);
+                return View(user);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult RewardUser(int selectedUserId)
+        {
+            if (selectedUserId == 0)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.Title = "Reward user";
+            var user = _allUsers.GetUserById(selectedUserId);
+            List<Reward> availableRewards = _allRewards.AllRewards
+                .Where(x => !user.Rewards.Contains(x))
+                .ToList();
+            ViewBag.AvailableRewards = availableRewards;
+            return View(user);
+
+        }
+
+        [HttpPost]
+        public IActionResult RewardUser(User user, int rewardId)
+        {
+            _allUsers.RewardUser(user.Id, rewardId);
+            return RedirectToAction("Index");
+        }
+
+        private Dictionary<Reward, bool> GetRewardChecker(User user)
+        {
             var rewardChecker = new Dictionary<Reward, bool>();
             foreach (var reward in _allRewards.AllRewards)
             {
@@ -70,44 +154,37 @@ namespace Shinkarev_Dmitriy_Task19.Controllers
                     checker = false;
                 }
                 rewardChecker.Add(reward, checker);
-            }    
-            var model = (user, rewardChecker);
-
-            return View(model);
+            }
+            return rewardChecker;
         }
 
-        [HttpPost]
-        public ViewResult ChangeUser(int userId, string newUserFirstName, string newUserLastName, DateTime newUserBirthDate, int[] prizesId)
+        private Dictionary<Reward, bool> GetRewardChecker(int[] chekedRewardsId)
         {
-            var checkedRewards = _allRewards.AllRewards
-                .Where(x => prizesId.Contains(x.Id))
-                .ToList();
-
-            ViewBag.Title = "Page with users";
-            _allUsers.ChangeUser(userId, newUserFirstName, newUserLastName, newUserBirthDate, checkedRewards);
-            return View("Index", _allUsers.AllUsers);
+            var rewardChecker = new Dictionary<Reward, bool>();
+            foreach (var reward in _allRewards.AllRewards)
+            {
+                bool checker;
+                if (chekedRewardsId.Contains(reward.Id))
+                {
+                    checker = true;
+                }
+                else
+                {
+                    checker = false;
+                }
+                rewardChecker.Add(reward, checker);
+            }
+            return rewardChecker;
         }
 
-        [HttpGet]
-        public ViewResult RewardUser(int selectedUserId)
+        private Dictionary<Reward, bool> GetRewardChecker()
         {
-            ViewBag.Title = "Reward user";
-            var user = _allUsers.GetUserById(selectedUserId);
-            List<Reward> availableRewards = _allRewards.AllRewards
-                .Where(x => !user.Rewards.Contains(x))
-                .ToList();
-
-            var model = new KeyValuePair<User, List<Reward>>(user, availableRewards);
-            return View(model);
-
-        }
-
-        [HttpPost]
-        public ViewResult RewardUser(int userId, int rewardId)
-        {
-            ViewBag.Title = "Page with users";
-            _allUsers.RewardUser(userId, rewardId);
-            return View("Index", _allUsers.AllUsers);
+            var rewardChecker = new Dictionary<Reward, bool>();
+            foreach (var reward in _allRewards.AllRewards)
+            {
+                rewardChecker.Add(reward, false);
+            }
+            return rewardChecker;
         }
     }
 }

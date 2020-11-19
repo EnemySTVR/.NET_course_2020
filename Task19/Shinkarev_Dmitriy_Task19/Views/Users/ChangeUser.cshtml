@@ -1,46 +1,93 @@
-﻿<h1>Change user</h1>
-<form method="post" id="changeUserForm">
-    <input type="hidden" name="userId" value="@Model.Item1.Id" />
-    <p>Name:</p>
-    <p>FirstName:</p>
-    <input type="text" name="newUserFirstName" value="@Model.Item1.FirstName" /><br />
-    <p>LastName:</p>
-    <input type="text" name="newUserLastName" value="@Model.Item1.LastName" /><br />
-    <p>BirthDate:</p>
-    <input type="date" name="newUserBirthDate" value="@Model.Item1.BirthDate.ToString("yyyy-MM-dd")"
-           min="@Model.Item1.BirthDate.AddYears(-150).ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" /><br />
+﻿@model Shinkarev_Dmitriy_Task19.Data.Models.User
 
-    <div class="scrollable">
+<form asp-controller="Users" asp-action="ChangeUser">
+    <input type="hidden" asp-for="Id" />
+    <div class="entitiesFormWrap">
+        <div class="inputProperties">
+            <h2>Change user</h2>
+            <div class="inputBox">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" />
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div class="inputBox">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" />
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div class="inputBox">
+                <label asp-for="BirthDate"></label>
+                <input asp-for="BirthDate"
+                       min="@DateTime.Now.AddYears(-150).ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="BirthDate"></span>
+            </div>
+            <div class="inputBox">
+                <label>Rewards:</label>
+                <div class="rewardCheckBoxes">
 
-        @foreach (var rewardChecker in Model.Item2)
-        {
-            @if (rewardChecker.Value == true)
-            {
-                <label>
-                    <input type="checkbox"
-                           value="@rewardChecker.Key.Id"
-                           name="prizesId[]"
-                           checked />
+                    @foreach (var rewardChecker in ViewBag.RewardChecker)
+                    {
+                        @if (rewardChecker.Value == true)
+                        {
+                            <label>
+                                <input type="checkbox"
+                                       value="@rewardChecker.Key.Id"
+                                       name="chekedRewardsId[]"
+                                       checked />
 
-                    @rewardChecker.Key.Name
+                                @rewardChecker.Key.Name
 
-                </label><br />
-            }
-            else
-            {
-                <label>
-                    <input type="checkbox"
-                           value="@rewardChecker.Key.Id"
-                           name="prizesId[]" />
-        
-                    @rewardChecker.Key.Name
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                <input type="checkbox"
+                                       value="@rewardChecker.Key.Id"
+                                       name="chekedRewardsId[]" />
 
-                </label><br />
-            }
+                                @rewardChecker.Key.Name
 
-        }
+                            </label>
+                        }
+
+                    }
+                </div>
+            </div>
+            <div class="inputBox">
+                <button type="submit">Change</button>
+                <button type="button" onclick="location.href ='/Users'">Cancel</button>
+            </div>
+        </div>
     </div>
+    <script>
 
-    <input type="submit" value="Change" /><br />
-    <input type="button" value="Cancel" onclick="location.href ='/Users'" />
+        function changeUserCheckValid() {
+            var firstName = document.getElementById("changedUserFirstName"),
+                lastName = document.getElementById("changedUserLastName"),
+                changeButton = document.getElementById("changeButton"),
+                uncorrectInputMessageBox = document.getElementById("uncorrectInputUserChange"),
+                isValidSymbolsRegex = /^(([A-я]+|[^\W0-9_]))$/,
+                isValid = true;
+
+            changeButton.disabled = false;
+
+            if (isValidSymbolsRegex.test(firstName.value) &&
+                isValidSymbolsRegex.test(lastName.value)) {
+                isValid = true;
+                uncorrectInputMessageBox.style.visibility = "hidden";
+            }
+            else {
+                isValid = false;
+                uncorrectInputMessageBox.style.visibility = "visible";
+            }
+
+
+
+            if (isValid == false) {
+                changeButton.disabled = true;
+            }
+        }
+
+    </script>
 </form>

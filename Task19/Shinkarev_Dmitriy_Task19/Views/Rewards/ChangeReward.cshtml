@@ -1,16 +1,27 @@
-﻿<h1>Add reward</h1>
-<form method="post" name="addRewardForm">
-    <input type="hidden" name="rewardId" value="@Model.Id" />
-    <p>Name:</p>
-    <input type="text" name="newRewardName" value="@Model.Name"/><br />
-    <p>Description:</p>
-    <input type="text" name="newRewardDescription" value="@Model.Description"/><br />
+﻿@model Reward
 
+<form asp-controller="Rewards" asp-action="ChangeReward">
+    <input type="hidden" asp-for="Id" />
+    <div class="entitiesFormWrap">
+        <div class="inputProperties">
+            <h2>Change reward</h2>
+            <div class="inputBox">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
 
-    <input type="submit" value="Change" /><br />
-    <input type="button" value="Cancel" onclick="location.href ='/Rewards'" />
+            <div class="inputBox">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="6" class="rewardDescriptionInputTextBox"></textarea>
+                <span asp-validation-for="Description"></span>
+            </div>
 
-    <script>
-
-    </script>
+            <div class="inputBox">
+                <button type="submit">Change</button>
+                <button type="button" onclick="location.href ='/Rewards'">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
 </form>

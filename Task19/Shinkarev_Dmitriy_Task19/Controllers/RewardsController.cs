@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shinkarev_Dmitriy_Task19.Data.interfaces;
+using Shinkarev_Dmitriy_Task19.Data.Models;
 using System;
 using System.Linq;
 
@@ -15,51 +16,53 @@ namespace Shinkarev_Dmitriy_Task19.Controllers
         }
 
         [HttpGet]
-        public ViewResult Index()
+        public IActionResult Index()
         {
             ViewBag.Title = "Page with rewards";
             return View(_iAllRewards.AllRewards);
         }
 
         [HttpGet]
-        public ViewResult RemoveReward(int rewardId)
+        public IActionResult RemoveReward(int selectedRewardId)
         {
             ViewBag.Title = "Page with rewards";
-            _iAllRewards.RemoveReward(rewardId);
-            return View("Index", _iAllRewards.AllRewards);
+            _iAllRewards.RemoveReward(selectedRewardId);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ViewResult AddReward()
+        public IActionResult AddReward()
         {
             ViewBag.Title = "Add new reward";
             return View();
         }
 
         [HttpPost]
-        public ViewResult AddReward(string newRewardName, string newRewardDescription)
+        public IActionResult AddReward(Reward model)
         {
-            ViewBag.Title = "Page with rewards";
-            _iAllRewards.AddRewardAndSetId(newRewardName, newRewardDescription);
-            return View("Index", _iAllRewards.AllRewards);
+            _iAllRewards.AddRewardAndSetId(model);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ViewResult ChangeReward(int rewardId)
+        public IActionResult ChangeReward(int selectedRewardId)
         {
+            if (selectedRewardId == 0)
+            {
+                return RedirectToAction("Index");
+            }
             ViewBag.Title = "Change reward";
             var reward = _iAllRewards.AllRewards
-                .Where(x => x.Id == rewardId)
+                .Where(x => x.Id == selectedRewardId)
                 .FirstOrDefault();
             return View(reward);
         }
 
         [HttpPost]
-        public ViewResult ChangeReward(int rewardId, string newRewardName, string newRewardDescription)
+        public IActionResult ChangeReward(Reward reward)
         {
-            ViewBag.Title = "Page with rewards";
-            _iAllRewards.ChangeReward(rewardId, newRewardName, newRewardDescription);
-            return View("Index", _iAllRewards.AllRewards);
+            _iAllRewards.ChangeReward(reward);
+            return RedirectToAction("Index");
         }
     }
 }

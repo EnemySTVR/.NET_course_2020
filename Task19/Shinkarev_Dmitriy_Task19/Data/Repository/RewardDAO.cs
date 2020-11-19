@@ -14,7 +14,7 @@ namespace Shinkarev_Dmitriy_Task19.Data.Repository
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("InsertPrize")
+                var command = new SqlCommand("InsertReward")
                 {
                     CommandType = CommandType.StoredProcedure,
                     Connection = connection
@@ -40,7 +40,7 @@ namespace Shinkarev_Dmitriy_Task19.Data.Repository
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("ChangePrize")
+                var command = new SqlCommand("ChangeReward")
                 {
                     CommandType = CommandType.StoredProcedure,
                     Connection = connection
@@ -58,7 +58,7 @@ namespace Shinkarev_Dmitriy_Task19.Data.Repository
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var command = new SqlCommand("RemovePrize")
+                var command = new SqlCommand("RemoveReward")
                 {
                     CommandType = CommandType.StoredProcedure,
                     Connection = connection
@@ -77,7 +77,7 @@ namespace Shinkarev_Dmitriy_Task19.Data.Repository
                 var allRewards = new List<Reward>();
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    var command = new SqlCommand("GetPrizes")
+                    var command = new SqlCommand("GetRewards")
                     {
                         CommandType = CommandType.StoredProcedure,
                         Connection = connection
