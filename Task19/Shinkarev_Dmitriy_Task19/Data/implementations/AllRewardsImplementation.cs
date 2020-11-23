@@ -16,16 +16,16 @@ namespace Shinkarev_Dmitriy_Task19.Data.mocks
             rewardDAO = new RewardDAO();
             userRewardsDAO = new UserRewardsDAO();
         }
-        List<Reward> IAllRewards.AllRewards 
+        IEnumerable<Reward> IAllRewards.AllRewards 
         {
             get
             {
-                return rewardDAO.AllRewards;
+                return rewardDAO.GetAllRewards();
             }
         }
         public Reward GetRewardById(int rewardId)
         {
-            return rewardDAO.AllRewards
+            return rewardDAO.GetAllRewards()
                 .Where(x => x.Id == rewardId)
                 .FirstOrDefault();
         }

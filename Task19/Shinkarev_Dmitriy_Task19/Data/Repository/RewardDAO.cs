@@ -70,38 +70,33 @@ namespace Shinkarev_Dmitriy_Task19.Data.Repository
             }
         }
 
-        public List<Reward> AllRewards
+        public IEnumerable<Reward> GetAllRewards()
         {
-            get
+            using (var connection = new SqlConnection(connectionString))
             {
-                var allRewards = new List<Reward>();
-                using (var connection = new SqlConnection(connectionString))
+                var command = new SqlCommand("GetRewards")
                 {
-                    var command = new SqlCommand("GetRewards")
-                    {
-                        CommandType = CommandType.StoredProcedure,
-                        Connection = connection
-                    };
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = connection
+                };
 
-                    connection.Open();
-                    var reader = command.ExecuteReader();
+                connection.Open();
+                var reader = command.ExecuteReader();
 
-                    if (reader.HasRows)
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        var reward = new Reward()
                         {
-                            var reward = new Reward()
-                            {
-                                Id = reader.GetInt32(0),
-                                Name = reader.GetString(1),
-                                Description = reader.GetString(2)
-                            };
-                            allRewards.Add(reward);
-                        }
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Description = reader.GetString(2)
+                        };
+                        yield return reward;
                     }
-                    reader.Close();
                 }
-                return allRewards;
+                reader.Close();
             }
         }
     }

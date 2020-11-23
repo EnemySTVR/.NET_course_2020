@@ -72,40 +72,36 @@ namespace Shinkarev_Dmitriy_Task19.Data.Repository
             }
         }
 
-        public List<User> AllUsers
+        public IEnumerable<User> GetAllUsers()
         {
-            get
+            using (var connection = new SqlConnection(connectionString))
             {
-                var allUsers = new List<User>();
-                using (var connection = new SqlConnection(connectionString))
+                var command = new SqlCommand("GetUsers")
                 {
-                    var command = new SqlCommand("GetUsers")
-                    {
-                        CommandType = CommandType.StoredProcedure,
-                        Connection = connection
-                    };
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = connection
+                };
 
-                    connection.Open();
-                    var reader = command.ExecuteReader();
+                connection.Open();
+                var reader = command.ExecuteReader();
 
-                    if (reader.HasRows)
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        var user = new User()
                         {
-                            var user = new User()
-                            {
-                                Id = reader.GetInt32(0),
-                                FirstName = reader.GetString(1),
-                                LastName = reader.GetString(2),
-                                BirthDate = reader.GetDateTime(3)
-                            };
-                            allUsers.Add(user);
-                        }
+                            Id = reader.GetInt32(0),
+                            FirstName = reader.GetString(1),
+                            LastName = reader.GetString(2),
+                            BirthDate = reader.GetDateTime(3)
+                        };
+                        yield return user;
                     }
-                    reader.Close();
                 }
-                return allUsers;
+                reader.Close();
             }
         }
     }
 }
+// 

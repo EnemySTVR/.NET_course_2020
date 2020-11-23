@@ -6,7 +6,7 @@ namespace Shinkarev_Dmitriy_Task19.Data.Interfaces
 {
     public interface IAllUsers
     {
-        List<User> AllUsers { get; }
+        IEnumerable<User> AllUsers { get; }
         User GetUserById(int userId);
         void AddUserAndSetId(User user);
         void ChangeUser(User user);

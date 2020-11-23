@@ -15,11 +15,11 @@ namespace Shinkarev_Dmitriy_Task19.Data.mocks
             userDAO = new UserDAO();
             userRewardsDAO = new UserRewardsDAO();
         }
-        public List<User> AllUsers
+        public IEnumerable<User> AllUsers
         {
             get
             {
-                var result = userDAO.AllUsers;
+                var result = userDAO.GetAllUsers();
                 foreach (var user in result)
                 {
                     user.Rewards = userRewardsDAO.GetRewardsForConcretUser(user.Id);
@@ -30,7 +30,7 @@ namespace Shinkarev_Dmitriy_Task19.Data.mocks
 
         public User GetUserById(int userId)
         {
-            var user = userDAO.AllUsers
+            var user = userDAO.GetAllUsers()
                 .Where(x => x.Id == userId)
                 .FirstOrDefault();
             user.Rewards = userRewardsDAO.GetRewardsForConcretUser(userId);

@@ -5,7 +5,7 @@ namespace Shinkarev_Dmitriy_Task19.Data.Interfaces
 {
     public interface IAllRewards
     {
-        List<Reward> AllRewards { get; }
+        IEnumerable<Reward> AllRewards { get; }
         Reward GetRewardById(int rewardId);
         void AddRewardAndSetId(Reward reward);
         void ChangeReward(Reward reward);
